@@ -26,4 +26,4 @@ You should then be able to run =demo.py <path to synchronized/rectified image di
 
 * License
 
-=libviso2= is licensed under the GPL, therefore this software is under the GPL as well. Please see the [[file://readme.txt][original readme]] for more information.
+=libviso2= is licensed under the GPL, therefore this software is under the GPL as well. Please see the [[https://github.com/jlowenz/pyviso2/blob/master/readme.txt][original readme]] for more information.
