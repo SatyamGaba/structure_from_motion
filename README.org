@@ -1,0 +1,29 @@
+* Overview
+
+=pyviso2= is a thin SWIG Python wrapping of the visual odometry library, [[http://www.cvlibs.net/software/libviso/][libviso2]].
+
+* Status
+
+Currently, the stereo demo included with libviso2 has been replicated in Python. The nested parameter classes used to configure the VisualOdometry* classes have been flattened and renamed in order to work with Python (see [[http://www.swig.org/Doc3.0/SWIGPlus.html#SWIGPlus_nested_classes][SWIG nested classes]]). In addition, a few overloaded methods have been renamed in order to work properly:
+
+- =Matrix::eye()= member function has been renamed to =Matrix::identity()= to allow the static member function =Matrix_eye(size)= to be created.
+- =Matrix::inv()= member function has been renamed to =Matrix::setInverse()= to allow the static member function =Matrix_inv(Matrix)= to be created.
+- A =VisualOdometryStereo::process_frame(img1,img2)= has been added to support [[http://www.numpy.org][NumPy]] grayscale images.
+
+* Getting Started
+
+Download the repository and enter the =src= directory.
+
+  $ git clone http://github.com/jlowenz/pyviso2.git
+  $ cd src 
+  $ python setup.py build_ext -i
+
+You should then be able to run =demo.py <path to synchronized/rectified image directory>=, or iPython and =import viso2=. 
+
+* Requirements
+
+=pyviso2= requires SWIG 3.0. CMake and libpng are required if you want to build the C++ demo from the original source. 
+
+* License
+
+=libviso2= is licensed under the GPL, therefore this software is under the GPL as well. Please see the [[file://readme.txt][original readme]] for more information.
