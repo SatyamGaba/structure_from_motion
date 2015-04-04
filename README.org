@@ -15,7 +15,9 @@ Currently, the stereo demo included with libviso2 has been replicated in Python.
 Download the repository and enter the =src= directory.
 
   $ git clone http://github.com/jlowenz/pyviso2.git
+  
   $ cd src 
+  
   $ python setup.py build_ext -i
 
 You should then be able to run =demo.py <path to synchronized/rectified image directory>=, or iPython and =import viso2=. 
