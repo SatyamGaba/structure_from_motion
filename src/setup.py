@@ -8,7 +8,10 @@ os.environ['OPT'] = " ".join(
     flag for flag in opt.split() if flag != '-Wstrict-prototypes'
 )
 
-setup(ext_modules=[Extension("_viso2",
+setup(name="pyviso2",
+      version="0.1.0",
+      py_modules=["viso2"],
+      ext_modules=[Extension("_viso2",
                              sources=["filter.cpp","matcher.cpp","matrix.cpp","reconstruction.cpp",
                                       "triangle.cpp","viso.cpp","viso_stereo.cpp", "viso2.i"],
                              language="c++",
