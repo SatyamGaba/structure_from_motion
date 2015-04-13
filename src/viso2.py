@@ -449,6 +449,10 @@ class Matrix(_object):
         """__str__(self) -> char const *"""
         return _viso2.Matrix___str__(self)
 
+    def toNumpy(self, *args):
+        """toNumpy(self, mat)"""
+        return _viso2.Matrix_toNumpy(self, *args)
+
 Matrix_swigregister = _viso2.Matrix_swigregister
 Matrix_swigregister(Matrix)
 

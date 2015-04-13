@@ -30,7 +30,8 @@
 typedef int int32_t;
 
 %apply (unsigned char* IN_ARRAY2, int DIM1, int DIM2 ) {(unsigned char* image1, int rows1, int cols1),
-     (unsigned char* image2, int rows2, int cols2)} 
+     (unsigned char* image2, int rows2, int cols2)}
+%apply (double* INPLACE_ARRAY2, int DIM1, int DIM2) { (double* mat, int rows, int cols) } 
 
 // what interfaces to SWIG?
 %include "viso.h"
@@ -54,5 +55,13 @@ typedef int int32_t;
     std::stringstream out;
     out << *$self;
     return out.str().c_str(); // will this work?
+  }
+}
+
+%extend Matrix {
+  // support typemap for numpy extraction
+  void toNumpy(double* mat, int rows, int cols) {
+    // TODO: bounds checking
+    $self->getData(mat, 0, 0, rows-1, cols-1);
   }
 }
