@@ -49,6 +49,23 @@ public:
     point3d (float x,float y,float z) : x(x),y(y),z(z) {}
   };
 
+  struct point2d {
+    float u,v;
+    point2d () {}
+    point2d (float u,float v) : u(u),v(v) {}
+  };
+  
+  struct track {
+    std::vector<point2d> pixels;
+    point3d pt; // 3D point for this set of tracked pixels
+    int32_t valid;
+    int32_t first_frame;
+    int32_t last_frame;
+    int32_t last_idx;
+    
+    track() : valid(false), first_frame(-1), last_frame(-1), last_idx(-1) {}
+  };
+
   // set calibration parameters (intrinsics), must be called at least once
   // input: f ....... focal length (assumes fu=fv)
   //        cu,cv ... principal point
@@ -66,22 +83,11 @@ public:
   void update (std::vector<Matcher::p_match> p_matched,Matrix Tr,int32_t point_type=1,int32_t min_track_length=2,double max_dist=30,double min_angle=2);
   
   // return currently computed 3d points (finished tracks)
-  std::vector<point3d> getPoints() { return points; }
+  const std::vector<point3d>& getPoints() { return points; }
+  const std::vector<track>& getTracks() { return tracks; }
+  
 
 private:
-  
-  struct point2d {
-    float u,v;
-    point2d () {}
-    point2d (float u,float v) : u(u),v(v) {}
-  };
-  
-  struct track {
-    std::vector<point2d> pixels;
-    int32_t first_frame;
-    int32_t last_frame;
-    int32_t last_idx;
-  };
   
   enum result { UPDATED, FAILED, CONVERGED };
   

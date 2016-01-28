@@ -26,6 +26,8 @@
 
 %rename (p_match) Matcher::p_match;
 %rename (point3d) Reconstruction::point3d;
+%rename (point2d) Reconstruction::point2d;
+%rename (track) Reconstruction::track;
 
 // make sure the static eye function is exposed
 %rename(identity) Matrix::eye();
@@ -49,6 +51,7 @@ typedef int int32_t;
 namespace std {
   %template(MatchVector) vector<Matcher::p_match>;
   %template(Point3dVector) vector<Reconstruction::point3d>;
+  %template(TrackVector) vector<Reconstruction::track>;
  }
 
 // apply the numpy typemap to enable a more comforable call with 2D images

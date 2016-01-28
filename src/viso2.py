@@ -769,6 +769,10 @@ class Reconstruction(_object):
         """getPoints(self) -> Point3dVector"""
         return _viso2.Reconstruction_getPoints(self)
 
+    def getTracks(self):
+        """getTracks(self) -> TrackVector"""
+        return _viso2.Reconstruction_getTracks(self)
+
 Reconstruction_swigregister = _viso2.Reconstruction_swigregister
 Reconstruction_swigregister(Reconstruction)
 
@@ -800,6 +804,67 @@ class point3d(_object):
     __del__ = lambda self : None;
 point3d_swigregister = _viso2.point3d_swigregister
 point3d_swigregister(point3d)
+
+class point2d(_object):
+    """Proxy of C++ Reconstruction::point2d class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, point2d, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, point2d, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["u"] = _viso2.point2d_u_set
+    __swig_getmethods__["u"] = _viso2.point2d_u_get
+    if _newclass:u = _swig_property(_viso2.point2d_u_get, _viso2.point2d_u_set)
+    __swig_setmethods__["v"] = _viso2.point2d_v_set
+    __swig_getmethods__["v"] = _viso2.point2d_v_get
+    if _newclass:v = _swig_property(_viso2.point2d_v_get, _viso2.point2d_v_set)
+    def __init__(self, *args): 
+        """
+        __init__(self) -> point2d
+        __init__(self, u, v) -> point2d
+        """
+        this = _viso2.new_point2d(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _viso2.delete_point2d
+    __del__ = lambda self : None;
+point2d_swigregister = _viso2.point2d_swigregister
+point2d_swigregister(point2d)
+
+class track(_object):
+    """Proxy of C++ Reconstruction::track class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, track, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, track, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["pixels"] = _viso2.track_pixels_set
+    __swig_getmethods__["pixels"] = _viso2.track_pixels_get
+    if _newclass:pixels = _swig_property(_viso2.track_pixels_get, _viso2.track_pixels_set)
+    __swig_setmethods__["pt"] = _viso2.track_pt_set
+    __swig_getmethods__["pt"] = _viso2.track_pt_get
+    if _newclass:pt = _swig_property(_viso2.track_pt_get, _viso2.track_pt_set)
+    __swig_setmethods__["valid"] = _viso2.track_valid_set
+    __swig_getmethods__["valid"] = _viso2.track_valid_get
+    if _newclass:valid = _swig_property(_viso2.track_valid_get, _viso2.track_valid_set)
+    __swig_setmethods__["first_frame"] = _viso2.track_first_frame_set
+    __swig_getmethods__["first_frame"] = _viso2.track_first_frame_get
+    if _newclass:first_frame = _swig_property(_viso2.track_first_frame_get, _viso2.track_first_frame_set)
+    __swig_setmethods__["last_frame"] = _viso2.track_last_frame_set
+    __swig_getmethods__["last_frame"] = _viso2.track_last_frame_get
+    if _newclass:last_frame = _swig_property(_viso2.track_last_frame_get, _viso2.track_last_frame_set)
+    __swig_setmethods__["last_idx"] = _viso2.track_last_idx_set
+    __swig_getmethods__["last_idx"] = _viso2.track_last_idx_get
+    if _newclass:last_idx = _swig_property(_viso2.track_last_idx_get, _viso2.track_last_idx_set)
+    def __init__(self): 
+        """__init__(self) -> track"""
+        this = _viso2.new_track()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _viso2.delete_track
+    __del__ = lambda self : None;
+track_swigregister = _viso2.track_swigregister
+track_swigregister(track)
 
 class MatchVector(_object):
     """Proxy of C++ std::vector<(Matcher::p_match)> class"""
@@ -1138,6 +1203,175 @@ class Point3dVector(_object):
     __del__ = lambda self : None;
 Point3dVector_swigregister = _viso2.Point3dVector_swigregister
 Point3dVector_swigregister(Point3dVector)
+
+class TrackVector(_object):
+    """Proxy of C++ std::vector<(Reconstruction::track)> class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, TrackVector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, TrackVector, name)
+    __repr__ = _swig_repr
+    def iterator(self):
+        """iterator(self) -> SwigPyIterator"""
+        return _viso2.TrackVector_iterator(self)
+
+    def __iter__(self): return self.iterator()
+    def __nonzero__(self):
+        """__nonzero__(self) -> bool"""
+        return _viso2.TrackVector___nonzero__(self)
+
+    def __bool__(self):
+        """__bool__(self) -> bool"""
+        return _viso2.TrackVector___bool__(self)
+
+    def __len__(self):
+        """__len__(self) -> std::vector< Reconstruction::track >::size_type"""
+        return _viso2.TrackVector___len__(self)
+
+    def pop(self):
+        """pop(self) -> track"""
+        return _viso2.TrackVector_pop(self)
+
+    def __getslice__(self, *args):
+        """__getslice__(self, i, j) -> TrackVector"""
+        return _viso2.TrackVector___getslice__(self, *args)
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(self, i, j, v=std::vector< Reconstruction::track,std::allocator< Reconstruction::track > >())
+        __setslice__(self, i, j)
+        """
+        return _viso2.TrackVector___setslice__(self, *args)
+
+    def __delslice__(self, *args):
+        """__delslice__(self, i, j)"""
+        return _viso2.TrackVector___delslice__(self, *args)
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(self, i)
+        __delitem__(self, slice)
+        """
+        return _viso2.TrackVector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(self, slice) -> TrackVector
+        __getitem__(self, i) -> track
+        """
+        return _viso2.TrackVector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(self, slice, v)
+        __setitem__(self, slice)
+        __setitem__(self, i, x)
+        """
+        return _viso2.TrackVector___setitem__(self, *args)
+
+    def append(self, *args):
+        """append(self, x)"""
+        return _viso2.TrackVector_append(self, *args)
+
+    def empty(self):
+        """empty(self) -> bool"""
+        return _viso2.TrackVector_empty(self)
+
+    def size(self):
+        """size(self) -> std::vector< Reconstruction::track >::size_type"""
+        return _viso2.TrackVector_size(self)
+
+    def clear(self):
+        """clear(self)"""
+        return _viso2.TrackVector_clear(self)
+
+    def swap(self, *args):
+        """swap(self, v)"""
+        return _viso2.TrackVector_swap(self, *args)
+
+    def get_allocator(self):
+        """get_allocator(self) -> std::vector< Reconstruction::track >::allocator_type"""
+        return _viso2.TrackVector_get_allocator(self)
+
+    def begin(self):
+        """begin(self) -> std::vector< Reconstruction::track >::iterator"""
+        return _viso2.TrackVector_begin(self)
+
+    def end(self):
+        """end(self) -> std::vector< Reconstruction::track >::iterator"""
+        return _viso2.TrackVector_end(self)
+
+    def rbegin(self):
+        """rbegin(self) -> std::vector< Reconstruction::track >::reverse_iterator"""
+        return _viso2.TrackVector_rbegin(self)
+
+    def rend(self):
+        """rend(self) -> std::vector< Reconstruction::track >::reverse_iterator"""
+        return _viso2.TrackVector_rend(self)
+
+    def pop_back(self):
+        """pop_back(self)"""
+        return _viso2.TrackVector_pop_back(self)
+
+    def erase(self, *args):
+        """
+        erase(self, pos) -> std::vector< Reconstruction::track >::iterator
+        erase(self, first, last) -> std::vector< Reconstruction::track >::iterator
+        """
+        return _viso2.TrackVector_erase(self, *args)
+
+    def __init__(self, *args): 
+        """
+        __init__(self) -> TrackVector
+        __init__(self, arg2) -> TrackVector
+        __init__(self, size) -> TrackVector
+        __init__(self, size, value) -> TrackVector
+        """
+        this = _viso2.new_TrackVector(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def push_back(self, *args):
+        """push_back(self, x)"""
+        return _viso2.TrackVector_push_back(self, *args)
+
+    def front(self):
+        """front(self) -> track"""
+        return _viso2.TrackVector_front(self)
+
+    def back(self):
+        """back(self) -> track"""
+        return _viso2.TrackVector_back(self)
+
+    def assign(self, *args):
+        """assign(self, n, x)"""
+        return _viso2.TrackVector_assign(self, *args)
+
+    def resize(self, *args):
+        """
+        resize(self, new_size)
+        resize(self, new_size, x)
+        """
+        return _viso2.TrackVector_resize(self, *args)
+
+    def insert(self, *args):
+        """
+        insert(self, pos, x) -> std::vector< Reconstruction::track >::iterator
+        insert(self, pos, n, x)
+        """
+        return _viso2.TrackVector_insert(self, *args)
+
+    def reserve(self, *args):
+        """reserve(self, n)"""
+        return _viso2.TrackVector_reserve(self, *args)
+
+    def capacity(self):
+        """capacity(self) -> std::vector< Reconstruction::track >::size_type"""
+        return _viso2.TrackVector_capacity(self)
+
+    __swig_destroy__ = _viso2.delete_TrackVector
+    __del__ = lambda self : None;
+TrackVector_swigregister = _viso2.TrackVector_swigregister
+TrackVector_swigregister(TrackVector)
 
 # This file is compatible with both classic and new-style classes.
 

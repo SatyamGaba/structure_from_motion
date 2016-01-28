@@ -15,6 +15,6 @@ setup(name="pyviso2",
                              sources=["filter.cpp","matcher.cpp","matrix.cpp","reconstruction.cpp",
                                       "triangle.cpp","viso.cpp","viso_stereo.cpp", "viso2.i"],
                              language="c++",
-                             swig_opts=['-c++','threads'],
+                             swig_opts=['-c++','-threads'],
                              extra_compile_args=['-msse3'],
                              include_dirs=[numpy.get_include()])])

@@ -21,6 +21,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 #include "reconstruction.h"
 #include <fstream>
+#include <cassert>
 
 using namespace std;
 
@@ -135,10 +136,14 @@ void Reconstruction::update (vector<Matcher::p_match> p_matched,Matrix Tr,int32_
         
         // try to init point from first and last track frame
         if (initPoint(*t,p)) {
-          if (pointType(*t,p)>=point_type)
-            if (refinePoint(*t,p))
+          if (pointType(*t,p)>=point_type) {
+            if (refinePoint(*t,p)) {
+	      t->valid = 1;	  
+	      t->pt = p;
               if(pointDistance(*t,p)<max_dist && rayAngle(*t,p)>min_angle)
                 points.push_back(p);
+	    }
+	  }
         }
       }
     }
@@ -200,9 +205,9 @@ bool Reconstruction::refinePoint(const track &t,point3d &p) {
   delete p_observe;
   delete p_predict;
   
-  if (result==CONVERGED)
+  if (result==CONVERGED) {
     return true;
-  else
+  }  else
     return false;
 }
 
@@ -264,6 +269,8 @@ Reconstruction::result Reconstruction::updatePoint(const track &t,point3d &p,con
   
   // number of frames
   int32_t num_frames = t.pixels.size();
+  // we need to be sure that tracks are continuous
+  assert(num_frames == (t.last_frame - t.first_frame));
   
   // extract observations
   computeObservations(t.pixels);
