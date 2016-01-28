@@ -3,6 +3,7 @@
 %{
 #define SWIG_FILE_WITH_INIT
 #include "viso_stereo.h"
+#include "reconstruction.h"
 %}
 
 // enable the flattened nested class structure
@@ -15,11 +16,16 @@
   import_array();
 %}
 
+%include "std_vector.i"
+%include "std_string.i"
 
 // rename the crazy nested class parameter scheme
 %rename (VO_parameters) VisualOdometry::parameters;
 %rename (Matcher_parameters) Matcher::parameters;
 %rename (Stereo_parameters) VisualOdometryStereo::parameters;
+
+%rename (p_match) Matcher::p_match;
+%rename (point3d) Reconstruction::point3d;
 
 // make sure the static eye function is exposed
 %rename(identity) Matrix::eye();
@@ -38,6 +44,12 @@ typedef int int32_t;
 %include "viso_stereo.h"
 %include "matrix.h"
 %include "matcher.h"
+%include "reconstruction.h"
+
+namespace std {
+  %template(MatchVector) vector<Matcher::p_match>;
+  %template(Point3dVector) vector<Reconstruction::point3d>;
+ }
 
 // apply the numpy typemap to enable a more comforable call with 2D images
 %extend VisualOdometryStereo {
@@ -51,10 +63,14 @@ typedef int int32_t;
 // enable string representation for the matrix object
 %feature("python:slot", "tp_str", functype="reprfunc") Matrix::__str__();
 %extend Matrix {
-  const char* __str__() {
+  std::string __str__() {
     std::stringstream out;
     out << *$self;
-    return out.str().c_str(); // will this work?
+    return out.str();
+    /* std::string s = out.str(); */
+    /* char* returned = (char*)malloc(s.length() * sizeof(char)); */
+    /* strcpy(returned, s.c_str()); */
+    /* return returned; // will this work? */
   }
 }
 

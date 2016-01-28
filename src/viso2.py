@@ -69,6 +69,93 @@ except AttributeError:
     _newclass = 0
 
 
+class SwigPyIterator(_object):
+    """Proxy of C++ swig::SwigPyIterator class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SwigPyIterator, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SwigPyIterator, name)
+    def __init__(self, *args, **kwargs): raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _viso2.delete_SwigPyIterator
+    __del__ = lambda self : None;
+    def value(self):
+        """value(self) -> PyObject *"""
+        return _viso2.SwigPyIterator_value(self)
+
+    def incr(self, n=1):
+        """
+        incr(self, n=1) -> SwigPyIterator
+        incr(self) -> SwigPyIterator
+        """
+        return _viso2.SwigPyIterator_incr(self, n)
+
+    def decr(self, n=1):
+        """
+        decr(self, n=1) -> SwigPyIterator
+        decr(self) -> SwigPyIterator
+        """
+        return _viso2.SwigPyIterator_decr(self, n)
+
+    def distance(self, *args):
+        """distance(self, x) -> ptrdiff_t"""
+        return _viso2.SwigPyIterator_distance(self, *args)
+
+    def equal(self, *args):
+        """equal(self, x) -> bool"""
+        return _viso2.SwigPyIterator_equal(self, *args)
+
+    def copy(self):
+        """copy(self) -> SwigPyIterator"""
+        return _viso2.SwigPyIterator_copy(self)
+
+    def next(self):
+        """next(self) -> PyObject *"""
+        return _viso2.SwigPyIterator_next(self)
+
+    def __next__(self):
+        """__next__(self) -> PyObject *"""
+        return _viso2.SwigPyIterator___next__(self)
+
+    def previous(self):
+        """previous(self) -> PyObject *"""
+        return _viso2.SwigPyIterator_previous(self)
+
+    def advance(self, *args):
+        """advance(self, n) -> SwigPyIterator"""
+        return _viso2.SwigPyIterator_advance(self, *args)
+
+    def __eq__(self, *args):
+        """__eq__(self, x) -> bool"""
+        return _viso2.SwigPyIterator___eq__(self, *args)
+
+    def __ne__(self, *args):
+        """__ne__(self, x) -> bool"""
+        return _viso2.SwigPyIterator___ne__(self, *args)
+
+    def __iadd__(self, *args):
+        """__iadd__(self, n) -> SwigPyIterator"""
+        return _viso2.SwigPyIterator___iadd__(self, *args)
+
+    def __isub__(self, *args):
+        """__isub__(self, n) -> SwigPyIterator"""
+        return _viso2.SwigPyIterator___isub__(self, *args)
+
+    def __add__(self, *args):
+        """__add__(self, n) -> SwigPyIterator"""
+        return _viso2.SwigPyIterator___add__(self, *args)
+
+    def __sub__(self, *args):
+        """
+        __sub__(self, n) -> SwigPyIterator
+        __sub__(self, x) -> ptrdiff_t
+        """
+        return _viso2.SwigPyIterator___sub__(self, *args)
+
+    def __iter__(self): return self
+SwigPyIterator_swigregister = _viso2.SwigPyIterator_swigregister
+SwigPyIterator_swigregister(SwigPyIterator)
+
 class VisualOdometry(_object):
     """Proxy of C++ VisualOdometry class"""
     __swig_setmethods__ = {}
@@ -88,7 +175,7 @@ class VisualOdometry(_object):
         return _viso2.VisualOdometry_getMotion(self)
 
     def getMatches(self):
-        """getMatches(self) -> std::vector< Matcher::p_match >"""
+        """getMatches(self) -> MatchVector"""
         return _viso2.VisualOdometry_getMatches(self)
 
     def getNumberOfMatches(self):
@@ -100,7 +187,7 @@ class VisualOdometry(_object):
         return _viso2.VisualOdometry_getNumberOfInliers(self)
 
     def getInlierIndices(self):
-        """getInlierIndices(self) -> std::vector< int32_t >"""
+        """getInlierIndices(self) -> std::vector< int32_t,std::allocator< int32_t > >"""
         return _viso2.VisualOdometry_getInlierIndices(self)
 
     def getGain(self, *args):
@@ -446,7 +533,7 @@ class Matrix(_object):
     __swig_getmethods__["n"] = _viso2.Matrix_n_get
     if _newclass:n = _swig_property(_viso2.Matrix_n_get, _viso2.Matrix_n_set)
     def __str__(self):
-        """__str__(self) -> char const *"""
+        """__str__(self) -> std::string"""
         return _viso2.Matrix___str__(self)
 
     def toNumpy(self, *args):
@@ -525,7 +612,7 @@ class Matcher(_object):
         return _viso2.Matcher_bucketFeatures(self, *args)
 
     def getMatches(self):
-        """getMatches(self) -> std::vector< Matcher::p_match >"""
+        """getMatches(self) -> MatchVector"""
         return _viso2.Matcher_getMatches(self)
 
     def getGain(self, *args):
@@ -649,6 +736,408 @@ class p_match(_object):
     __del__ = lambda self : None;
 p_match_swigregister = _viso2.p_match_swigregister
 p_match_swigregister(p_match)
+
+class Reconstruction(_object):
+    """Proxy of C++ Reconstruction class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Reconstruction, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Reconstruction, name)
+    __repr__ = _swig_repr
+    def __init__(self): 
+        """__init__(self) -> Reconstruction"""
+        this = _viso2.new_Reconstruction()
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _viso2.delete_Reconstruction
+    __del__ = lambda self : None;
+    def setCalibration(self, *args):
+        """setCalibration(self, f, cu, cv)"""
+        return _viso2.Reconstruction_setCalibration(self, *args)
+
+    def update(self, *args):
+        """
+        update(self, p_matched, Tr, point_type=1, min_track_length=2, max_dist=30, min_angle=2)
+        update(self, p_matched, Tr, point_type=1, min_track_length=2, max_dist=30)
+        update(self, p_matched, Tr, point_type=1, min_track_length=2)
+        update(self, p_matched, Tr, point_type=1)
+        update(self, p_matched, Tr)
+        """
+        return _viso2.Reconstruction_update(self, *args)
+
+    def getPoints(self):
+        """getPoints(self) -> Point3dVector"""
+        return _viso2.Reconstruction_getPoints(self)
+
+Reconstruction_swigregister = _viso2.Reconstruction_swigregister
+Reconstruction_swigregister(Reconstruction)
+
+class point3d(_object):
+    """Proxy of C++ Reconstruction::point3d class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, point3d, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, point3d, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["x"] = _viso2.point3d_x_set
+    __swig_getmethods__["x"] = _viso2.point3d_x_get
+    if _newclass:x = _swig_property(_viso2.point3d_x_get, _viso2.point3d_x_set)
+    __swig_setmethods__["y"] = _viso2.point3d_y_set
+    __swig_getmethods__["y"] = _viso2.point3d_y_get
+    if _newclass:y = _swig_property(_viso2.point3d_y_get, _viso2.point3d_y_set)
+    __swig_setmethods__["z"] = _viso2.point3d_z_set
+    __swig_getmethods__["z"] = _viso2.point3d_z_get
+    if _newclass:z = _swig_property(_viso2.point3d_z_get, _viso2.point3d_z_set)
+    def __init__(self, *args): 
+        """
+        __init__(self) -> point3d
+        __init__(self, x, y, z) -> point3d
+        """
+        this = _viso2.new_point3d(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    __swig_destroy__ = _viso2.delete_point3d
+    __del__ = lambda self : None;
+point3d_swigregister = _viso2.point3d_swigregister
+point3d_swigregister(point3d)
+
+class MatchVector(_object):
+    """Proxy of C++ std::vector<(Matcher::p_match)> class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, MatchVector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, MatchVector, name)
+    __repr__ = _swig_repr
+    def iterator(self):
+        """iterator(self) -> SwigPyIterator"""
+        return _viso2.MatchVector_iterator(self)
+
+    def __iter__(self): return self.iterator()
+    def __nonzero__(self):
+        """__nonzero__(self) -> bool"""
+        return _viso2.MatchVector___nonzero__(self)
+
+    def __bool__(self):
+        """__bool__(self) -> bool"""
+        return _viso2.MatchVector___bool__(self)
+
+    def __len__(self):
+        """__len__(self) -> std::vector< Matcher::p_match >::size_type"""
+        return _viso2.MatchVector___len__(self)
+
+    def pop(self):
+        """pop(self) -> p_match"""
+        return _viso2.MatchVector_pop(self)
+
+    def __getslice__(self, *args):
+        """__getslice__(self, i, j) -> MatchVector"""
+        return _viso2.MatchVector___getslice__(self, *args)
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(self, i, j, v=std::vector< Matcher::p_match,std::allocator< Matcher::p_match > >())
+        __setslice__(self, i, j)
+        """
+        return _viso2.MatchVector___setslice__(self, *args)
+
+    def __delslice__(self, *args):
+        """__delslice__(self, i, j)"""
+        return _viso2.MatchVector___delslice__(self, *args)
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(self, i)
+        __delitem__(self, slice)
+        """
+        return _viso2.MatchVector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(self, slice) -> MatchVector
+        __getitem__(self, i) -> p_match
+        """
+        return _viso2.MatchVector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(self, slice, v)
+        __setitem__(self, slice)
+        __setitem__(self, i, x)
+        """
+        return _viso2.MatchVector___setitem__(self, *args)
+
+    def append(self, *args):
+        """append(self, x)"""
+        return _viso2.MatchVector_append(self, *args)
+
+    def empty(self):
+        """empty(self) -> bool"""
+        return _viso2.MatchVector_empty(self)
+
+    def size(self):
+        """size(self) -> std::vector< Matcher::p_match >::size_type"""
+        return _viso2.MatchVector_size(self)
+
+    def clear(self):
+        """clear(self)"""
+        return _viso2.MatchVector_clear(self)
+
+    def swap(self, *args):
+        """swap(self, v)"""
+        return _viso2.MatchVector_swap(self, *args)
+
+    def get_allocator(self):
+        """get_allocator(self) -> std::vector< Matcher::p_match >::allocator_type"""
+        return _viso2.MatchVector_get_allocator(self)
+
+    def begin(self):
+        """begin(self) -> std::vector< Matcher::p_match >::iterator"""
+        return _viso2.MatchVector_begin(self)
+
+    def end(self):
+        """end(self) -> std::vector< Matcher::p_match >::iterator"""
+        return _viso2.MatchVector_end(self)
+
+    def rbegin(self):
+        """rbegin(self) -> std::vector< Matcher::p_match >::reverse_iterator"""
+        return _viso2.MatchVector_rbegin(self)
+
+    def rend(self):
+        """rend(self) -> std::vector< Matcher::p_match >::reverse_iterator"""
+        return _viso2.MatchVector_rend(self)
+
+    def pop_back(self):
+        """pop_back(self)"""
+        return _viso2.MatchVector_pop_back(self)
+
+    def erase(self, *args):
+        """
+        erase(self, pos) -> std::vector< Matcher::p_match >::iterator
+        erase(self, first, last) -> std::vector< Matcher::p_match >::iterator
+        """
+        return _viso2.MatchVector_erase(self, *args)
+
+    def __init__(self, *args): 
+        """
+        __init__(self) -> MatchVector
+        __init__(self, arg2) -> MatchVector
+        __init__(self, size) -> MatchVector
+        __init__(self, size, value) -> MatchVector
+        """
+        this = _viso2.new_MatchVector(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def push_back(self, *args):
+        """push_back(self, x)"""
+        return _viso2.MatchVector_push_back(self, *args)
+
+    def front(self):
+        """front(self) -> p_match"""
+        return _viso2.MatchVector_front(self)
+
+    def back(self):
+        """back(self) -> p_match"""
+        return _viso2.MatchVector_back(self)
+
+    def assign(self, *args):
+        """assign(self, n, x)"""
+        return _viso2.MatchVector_assign(self, *args)
+
+    def resize(self, *args):
+        """
+        resize(self, new_size)
+        resize(self, new_size, x)
+        """
+        return _viso2.MatchVector_resize(self, *args)
+
+    def insert(self, *args):
+        """
+        insert(self, pos, x) -> std::vector< Matcher::p_match >::iterator
+        insert(self, pos, n, x)
+        """
+        return _viso2.MatchVector_insert(self, *args)
+
+    def reserve(self, *args):
+        """reserve(self, n)"""
+        return _viso2.MatchVector_reserve(self, *args)
+
+    def capacity(self):
+        """capacity(self) -> std::vector< Matcher::p_match >::size_type"""
+        return _viso2.MatchVector_capacity(self)
+
+    __swig_destroy__ = _viso2.delete_MatchVector
+    __del__ = lambda self : None;
+MatchVector_swigregister = _viso2.MatchVector_swigregister
+MatchVector_swigregister(MatchVector)
+
+class Point3dVector(_object):
+    """Proxy of C++ std::vector<(Reconstruction::point3d)> class"""
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Point3dVector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Point3dVector, name)
+    __repr__ = _swig_repr
+    def iterator(self):
+        """iterator(self) -> SwigPyIterator"""
+        return _viso2.Point3dVector_iterator(self)
+
+    def __iter__(self): return self.iterator()
+    def __nonzero__(self):
+        """__nonzero__(self) -> bool"""
+        return _viso2.Point3dVector___nonzero__(self)
+
+    def __bool__(self):
+        """__bool__(self) -> bool"""
+        return _viso2.Point3dVector___bool__(self)
+
+    def __len__(self):
+        """__len__(self) -> std::vector< Reconstruction::point3d >::size_type"""
+        return _viso2.Point3dVector___len__(self)
+
+    def pop(self):
+        """pop(self) -> point3d"""
+        return _viso2.Point3dVector_pop(self)
+
+    def __getslice__(self, *args):
+        """__getslice__(self, i, j) -> Point3dVector"""
+        return _viso2.Point3dVector___getslice__(self, *args)
+
+    def __setslice__(self, *args):
+        """
+        __setslice__(self, i, j, v=std::vector< Reconstruction::point3d,std::allocator< Reconstruction::point3d > >())
+        __setslice__(self, i, j)
+        """
+        return _viso2.Point3dVector___setslice__(self, *args)
+
+    def __delslice__(self, *args):
+        """__delslice__(self, i, j)"""
+        return _viso2.Point3dVector___delslice__(self, *args)
+
+    def __delitem__(self, *args):
+        """
+        __delitem__(self, i)
+        __delitem__(self, slice)
+        """
+        return _viso2.Point3dVector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        """
+        __getitem__(self, slice) -> Point3dVector
+        __getitem__(self, i) -> point3d
+        """
+        return _viso2.Point3dVector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        """
+        __setitem__(self, slice, v)
+        __setitem__(self, slice)
+        __setitem__(self, i, x)
+        """
+        return _viso2.Point3dVector___setitem__(self, *args)
+
+    def append(self, *args):
+        """append(self, x)"""
+        return _viso2.Point3dVector_append(self, *args)
+
+    def empty(self):
+        """empty(self) -> bool"""
+        return _viso2.Point3dVector_empty(self)
+
+    def size(self):
+        """size(self) -> std::vector< Reconstruction::point3d >::size_type"""
+        return _viso2.Point3dVector_size(self)
+
+    def clear(self):
+        """clear(self)"""
+        return _viso2.Point3dVector_clear(self)
+
+    def swap(self, *args):
+        """swap(self, v)"""
+        return _viso2.Point3dVector_swap(self, *args)
+
+    def get_allocator(self):
+        """get_allocator(self) -> std::vector< Reconstruction::point3d >::allocator_type"""
+        return _viso2.Point3dVector_get_allocator(self)
+
+    def begin(self):
+        """begin(self) -> std::vector< Reconstruction::point3d >::iterator"""
+        return _viso2.Point3dVector_begin(self)
+
+    def end(self):
+        """end(self) -> std::vector< Reconstruction::point3d >::iterator"""
+        return _viso2.Point3dVector_end(self)
+
+    def rbegin(self):
+        """rbegin(self) -> std::vector< Reconstruction::point3d >::reverse_iterator"""
+        return _viso2.Point3dVector_rbegin(self)
+
+    def rend(self):
+        """rend(self) -> std::vector< Reconstruction::point3d >::reverse_iterator"""
+        return _viso2.Point3dVector_rend(self)
+
+    def pop_back(self):
+        """pop_back(self)"""
+        return _viso2.Point3dVector_pop_back(self)
+
+    def erase(self, *args):
+        """
+        erase(self, pos) -> std::vector< Reconstruction::point3d >::iterator
+        erase(self, first, last) -> std::vector< Reconstruction::point3d >::iterator
+        """
+        return _viso2.Point3dVector_erase(self, *args)
+
+    def __init__(self, *args): 
+        """
+        __init__(self) -> Point3dVector
+        __init__(self, arg2) -> Point3dVector
+        __init__(self, size) -> Point3dVector
+        __init__(self, size, value) -> Point3dVector
+        """
+        this = _viso2.new_Point3dVector(*args)
+        try: self.this.append(this)
+        except: self.this = this
+    def push_back(self, *args):
+        """push_back(self, x)"""
+        return _viso2.Point3dVector_push_back(self, *args)
+
+    def front(self):
+        """front(self) -> point3d"""
+        return _viso2.Point3dVector_front(self)
+
+    def back(self):
+        """back(self) -> point3d"""
+        return _viso2.Point3dVector_back(self)
+
+    def assign(self, *args):
+        """assign(self, n, x)"""
+        return _viso2.Point3dVector_assign(self, *args)
+
+    def resize(self, *args):
+        """
+        resize(self, new_size)
+        resize(self, new_size, x)
+        """
+        return _viso2.Point3dVector_resize(self, *args)
+
+    def insert(self, *args):
+        """
+        insert(self, pos, x) -> std::vector< Reconstruction::point3d >::iterator
+        insert(self, pos, n, x)
+        """
+        return _viso2.Point3dVector_insert(self, *args)
+
+    def reserve(self, *args):
+        """reserve(self, n)"""
+        return _viso2.Point3dVector_reserve(self, *args)
+
+    def capacity(self):
+        """capacity(self) -> std::vector< Reconstruction::point3d >::size_type"""
+        return _viso2.Point3dVector_capacity(self)
+
+    __swig_destroy__ = _viso2.delete_Point3dVector
+    __del__ = lambda self : None;
+Point3dVector_swigregister = _viso2.Point3dVector_swigregister
+Point3dVector_swigregister(Point3dVector)
 
 # This file is compatible with both classic and new-style classes.
 

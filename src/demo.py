@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
 import viso2
+import numpy as np
+import matplotlib.pyplot as plt
+from mayavi import mlab
 from skimage.io import imread
 import pathlib as pl
 import sys
@@ -27,6 +30,8 @@ params.base     = 0.537
 
 # initialize visual odometry 
 viso = viso2.VisualOdometryStereo(params)
+recon = viso2.Reconstruction()
+recon.setCalibration(params.calib.f, params.calib.cu, params.calib.cv)
 
 all_images = [f for f in base_dir.rglob("*.png")]
 left_gray = filter_by_name(LEFT, all_images)
@@ -46,15 +51,31 @@ for i in xrange(N):
 
     # compute visual odometry
     if viso.process_frame(left_img, right_img):
-        est_motion = viso2.Matrix_inv(viso.getMotion())
+        motion = viso.getMotion()
+        est_motion = viso2.Matrix_inv(motion)
         pose = pose * est_motion
 
         num_matches = viso.getNumberOfMatches()
         num_inliers = viso.getNumberOfInliers()
         print 'Matches:', num_matches, "Inliers:", 100*num_inliers/num_matches, '%, Current pose:'
         print pose
+
+        matches = viso.getMatches()
+        assert(matches.size() == num_matches)
+        recon.update(matches, motion, 0)
     else:
         print '.... failed!'
+
+points = recon.getPoints()
+print "Reconstructed", points.size(), "points..."
+
+pts = np.empty((points.size(),3))
+for i,p in enumerate(points):
+    pts[i,:] = (p.x, p.y, p.z)
+
+mlab.figure()
+mlab.points3d(pts[:,0], pts[:,1], pts[:,2], colormap='copper')
+mlab.show()
 
 print 'Demo complete! Exiting...'
         
