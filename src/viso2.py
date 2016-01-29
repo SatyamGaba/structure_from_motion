@@ -359,6 +359,10 @@ class Matrix(_object):
         except: self.this = this
     __swig_destroy__ = _viso2.delete_Matrix
     __del__ = lambda self : None;
+    def assign(self, *args):
+        """assign(self, M) -> Matrix"""
+        return _viso2.Matrix_assign(self, *args)
+
     def getData(self, *args):
         """
         getData(self, val_, i1=0, j1=0, i2=-1, j2=-1)

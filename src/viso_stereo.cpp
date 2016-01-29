@@ -23,7 +23,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 using namespace std;
 
-VisualOdometryStereo::VisualOdometryStereo (parameters param) : param(param), VisualOdometry(param) {
+VisualOdometryStereo::VisualOdometryStereo (parameters param) : VisualOdometry(param), param(param) {
   matcher->setIntrinsics(param.calib.f,param.calib.cu,param.calib.cv,param.base);
 }
 
@@ -62,7 +62,7 @@ vector<double> VisualOdometryStereo::estimateMotion (vector<Matcher::p_match> p_
     if (it->u1c>width)  width  = it->u1c;
     if (it->v1c>height) height = it->v1c;
   }
-  double min_dist = min(width,height)/3.0;
+  //double min_dist = min(width,height)/3.0;
   
   // get number of matches
   int32_t N  = p_matched.size();

@@ -33,6 +33,8 @@
 %rename(identity) Matrix::eye();
 %rename(setInverse) Matrix::inv();
 
+%rename(assign) Matrix::operator=;
+
 // no need for iostream operators
 %ignore operator<<;
 typedef int int32_t;

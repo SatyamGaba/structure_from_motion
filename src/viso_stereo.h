@@ -46,7 +46,7 @@ public:
   VisualOdometryStereo (parameters param);
   
   // deconstructor
-  ~VisualOdometryStereo ();
+  virtual ~VisualOdometryStereo ();
   
   // process a new images, push the images back to an internal ring buffer.
   // valid motion estimates are available after calling process for two times.

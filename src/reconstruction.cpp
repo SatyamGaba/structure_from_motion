@@ -84,7 +84,7 @@ void Reconstruction::update (vector<Matcher::p_match> p_matched,Matrix Tr,int32_
   int32_t *track_idx = new int32_t[track_idx_max+1];
   for (int32_t i=0; i<=track_idx_max; i++)
     track_idx[i] = -1;
-  for (int32_t i=0; i<tracks.size(); i++)
+  for (size_t i=0; i<tracks.size(); i++)
     track_idx[tracks[i].last_idx] = i;
   
   // associate matches to tracks
@@ -129,7 +129,7 @@ void Reconstruction::update (vector<Matcher::p_match> p_matched,Matrix Tr,int32_
     } else {
       
       // add to 3d reconstruction
-      if (t->pixels.size()>=min_track_length) {
+      if (t->pixels.size()>=(size_t)min_track_length) {
         
         // 3d point
         point3d p;
@@ -314,7 +314,7 @@ Reconstruction::result Reconstruction::updatePoint(const track &t,point3d &p,con
 }
 
 void Reconstruction::computeObservations(const vector<point2d> &pixels) {
-  for (int32_t i=0; i<pixels.size(); i++) {
+  for (size_t i=0; i<pixels.size(); i++) {
     p_observe[i*2+0] = pixels[i].u;
     p_observe[i*2+1] = pixels[i].v;
   }
