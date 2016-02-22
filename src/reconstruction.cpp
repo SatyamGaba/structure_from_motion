@@ -138,8 +138,9 @@ void Reconstruction::update (vector<Matcher::p_match> p_matched,Matrix Tr,int32_
         if (initPoint(*t,p)) {
           if (pointType(*t,p)>=point_type) {
             if (refinePoint(*t,p)) {
-	      t->valid = 1;	  
+	      t->valid = 1;
 	      t->pt = p;
+	      complete_tracks.push_back(*t);
               if(pointDistance(*t,p)<max_dist && rayAngle(*t,p)>min_angle)
                 points.push_back(p);
 	    }

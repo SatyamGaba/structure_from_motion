@@ -84,7 +84,7 @@ public:
   
   // return currently computed 3d points (finished tracks)
   const std::vector<point3d>& getPoints() { return points; }
-  const std::vector<track>& getTracks() { return tracks; }
+  const std::vector<track>& getTracks() { return complete_tracks; }
   
 
 private:
@@ -104,7 +104,8 @@ private:
   // calibration matrices
   Matrix K,Tr_cam_road;
   
-  std::vector<track>   tracks;
+  std::vector<track>   tracks; // active
+  std::vector<track>   complete_tracks; // inactive
   std::vector<Matrix>  Tr_total;
   std::vector<Matrix>  Tr_inv_total;
   std::vector<Matrix>  P_total;
