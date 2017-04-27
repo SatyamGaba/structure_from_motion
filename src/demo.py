@@ -3,7 +3,7 @@
 import viso2
 import numpy as np
 import matplotlib.pyplot as plt
-from mayavi import mlab
+#from mayavi import mlab
 from skimage.io import imread
 import pathlib as pl
 import sys
@@ -15,7 +15,7 @@ LEFT="image_00"
 RIGHT="image_01"
 
 if len(sys.argv) < 2:
-    print 'Usage: ./demo.py path/to/2011_09_26_drive_0106_sync'
+    print('Usage: ./demo.py path/to/2011_09_26_drive_0106_sync')
     sys.exit(0)
 
 base_dir = pl.Path(sys.argv[1])
@@ -29,9 +29,30 @@ params.calib.cv = 172.854
 params.base     = 0.537
 
 # initialize visual odometry 
-viso = viso2.VisualOdometryStereo(params)
-recon = viso2.Reconstruction()
-recon.setCalibration(params.calib.f, params.calib.cu, params.calib.cv)
+# viso = viso2.VisualOdometryStereo(params)
+# recon = viso2.Reconstruction()
+# recon.setCalibration(params.calib.f, params.calib.cu, params.calib.cv)
+matcher_params = viso2.Matcher_parameters()
+
+matcher_params.f = 721.5377
+matcher_params.cu = 609.5593
+matcher_params.cv = 172.854
+matcher_params.base = 0.537
+matcher_params.nms_n = 13
+matcher_params.nms_tau = 50
+matcher_params.match_binsize = 50 
+matcher_params.match_radius = 200
+matcher_params.match_disp_tolerance = 2
+matcher_params.outlier_flow_tolerance = 10
+matcher_params.outlier_disp_tolerance = 10
+matcher_params.multi_stage = 1
+matcher_params.half_resolution = 0
+matcher_params.refinement = 1
+
+
+
+matcher = viso2.Matcher(matcher_params)
+matcher.setIntrinsics(params.calib.f, params.calib.cu, params.calib.cv, params.base)
 
 all_images = [f for f in base_dir.rglob("*.png")]
 left_gray = filter_by_name(LEFT, all_images)
@@ -41,41 +62,58 @@ N = len(left_gray)
 assert(len(left_gray) == len(right_gray))
 
 pose = viso2.Matrix_eye(4)
-for i in xrange(N):
+for i in range(N):
     # load the images
     left_img = imread(str(left_gray[i]))
     right_img = imread(str(right_gray[i]))
     assert(len(left_img.shape) == 2) # should be grayscale
     
-    print "Processing: Frame:", i
+    print("Processing: Frame:", i)
 
-    # compute visual odometry
-    if viso.process_frame(left_img, right_img):
-        motion = viso.getMotion()
-        est_motion = viso2.Matrix_inv(motion)
-        pose = pose * est_motion
+    matcher.pushBack(left_img, right_img)
+    
+    if i > 0:
+        matcher.matchFeatures(2)
+        matches = matcher.getMatches()
+        matches_mat = np.empty([8, matches.size()])
+        print(matches.size())
 
-        num_matches = viso.getNumberOfMatches()
-        num_inliers = viso.getNumberOfInliers()
-        print 'Matches:', num_matches, "Inliers:", 100*num_inliers/num_matches, '%, Current pose:'
-        print pose
+        for i,m in enumerate(matches):
+            if i == 342:
+                print("{}".format([m.u1p, m.v1p]))
+                matches_mat[:, i] = (m.u1p, m.v1p, m.u2p, m.v2p,m.u1c,m.v1c,m.u2c,m.v2c)
+        
 
-        matches = viso.getMatches()
-        assert(matches.size() == num_matches)
-        recon.update(matches, motion, 0)
-    else:
-        print '.... failed!'
+    # if viso.process_frame(left_img, right_img):
+    #     motion = viso.getMotion()
+    #     est_motion = viso2.Matrix_inv(motion)
+    #     pose = pose * est_motion
 
-points = recon.getPoints()
-print "Reconstructed", points.size(), "points..."
+    #     num_matches = viso.getNumberOfMatches()
+    #     num_inliers = viso.getNumberOfInliers()
+    #     print('Matches:', num_matches, "Inliers:", 100*num_inliers/num_matches, '%, Current pose:')
+    #     print(pose)
 
-pts = np.empty((points.size(),3))
-for i,p in enumerate(points):
-    pts[i,:] = (p.x, p.y, p.z)
+    #     matches = viso.getMatches()
+    #     matches_mat = np.empty([2, matches.size()])
+        
+    #     matches_mat
 
-mlab.figure()
-mlab.points3d(pts[:,0], pts[:,1], pts[:,2], colormap='copper')
-mlab.show()
+    #     assert(matches.size() == num_matches)
+    #     recon.update(matches, motion, 0)
+    # else:
+    #     print('.... failed!')
 
-print 'Demo complete! Exiting...'
+# points = recon.getPoints()
+# print("Reconstructed", points.size(), "points...")
+
+# pts = np.empty((points.size(),3))
+# for i,p in enumerate(points):
+#     pts[i,:] = (p.x, p.y, p.z)
+
+#mlab.figure()
+#mlab.points3d(pts[:,0], pts[:,1], pts[:,2], colormap='copper')
+#mlab.show()
+
+print('Demo complete! Exiting...')
         

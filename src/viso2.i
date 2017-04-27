@@ -41,7 +41,7 @@ typedef int int32_t;
 
 %apply (unsigned char* IN_ARRAY2, int DIM1, int DIM2 ) {(unsigned char* image1, int rows1, int cols1),
      (unsigned char* image2, int rows2, int cols2)}
-%apply (double* INPLACE_ARRAY2, int DIM1, int DIM2) { (double* mat, int rows, int cols) } 
+%apply (double* INPLACE_ARRAY2, int DIM1, int DIM2) { (double* mat, int rows, int cols) }
 
 // what interfaces to SWIG?
 %include "viso.h"
@@ -62,6 +62,14 @@ namespace std {
   {
     int dims[] = {cols1, rows1, cols1};
     return $self->process(image1, image2, dims, replace);
+  }
+}
+
+%extend Matcher {
+  void pushBack(unsigned char* image1, int rows1, int cols1, unsigned char* image2, int rows2, int cols2, bool replace=false)
+  {
+    int dims[] = {cols1, rows1, cols1};
+    return $self->pushBack(image1, image2, dims, replace);
   }
 }
 
