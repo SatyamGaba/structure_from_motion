@@ -756,6 +756,8 @@ class Matcher(_object):
         pushBack(self, I1, dims, replace)
         pushBack(self, image1, image2, replace=False)
         pushBack(self, image1, image2)
+        pushBack(self, image1, replace=False)
+        pushBack(self, image1)
         """
         return _viso2.Matcher_pushBack(self, *args)
 

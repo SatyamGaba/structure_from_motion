@@ -71,6 +71,11 @@ namespace std {
     int dims[] = {cols1, rows1, cols1};
     return $self->pushBack(image1, image2, dims, replace);
   }
+  void pushBack(unsigned char* image1, int rows1, int cols1, bool replace=false)
+  {
+    int dims[] = {cols1, rows1, cols1};
+    return $self->pushBack(image1, dims, replace);
+  }
 }
 
 // enable string representation for the matrix object
