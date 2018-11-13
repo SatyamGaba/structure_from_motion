@@ -180,7 +180,7 @@ void Matcher::pushBack (uint8_t *I1,uint8_t* I2,int32_t* dims,const bool replace
     computeFeatures(I2c,dims_c,m2c1,n2c1,m2c2,n2c2,I2c_du,I2c_dv,I2c_du_full,I2c_dv_full);
 }
 
-void Matcher::matchFeatures(int32_t method, Matrix *Tr_delta) {
+int32_t Matcher::matchFeatures(int32_t method, Matrix *Tr_delta) {
   
   //////////////////
   // sanity check //
@@ -189,31 +189,32 @@ void Matcher::matchFeatures(int32_t method, Matrix *Tr_delta) {
   // flow
   if (method==0) {
     if (m1p2==0 || n1p2==0 || m1c2==0 || n1c2==0)
-      return;
+      return 0;
     if (param.multi_stage)
       if (m1p1==0 || n1p1==0 || m1c1==0 || n1c1==0)
-        return;
+        return 0;
     
   // stereo
   } else if (method==1) {
     if (m1c2==0 || n1c2==0 || m2c2==0 || n2c2==0)
-      return;
+      return 0;
     if (param.multi_stage)
       if (m1c1==0 || n1c1==0 || m2c1==0 || n2c1==0)
-        return;
+        return 0;
     
   // quad matching
   } else {
     if (m1p2==0 || n1p2==0 || m2p2==0 || n2p2==0 || m1c2==0 || n1c2==0 || m2c2==0 || n2c2==0)
-      return;
+      return 0;
     if (param.multi_stage)
       if (m1p1==0 || n1p1==0 || m2p1==0 || n2p1==0 || m1c1==0 || n1c1==0 || m2c1==0 || n2c1==0)
-        return;    
+        return 0;    
   }
 
   // clear old matches
   p_matched_1.clear();
   p_matched_2.clear();
+  int32_t totalmatches = 0;
 
   // double pass matching
   if (param.multi_stage) {
@@ -229,6 +230,7 @@ void Matcher::matchFeatures(int32_t method, Matrix *Tr_delta) {
     matching(m1p2,m2p2,m1c2,m2c2,n1p2,n2p2,n1c2,n2c2,p_matched_2,method,true,Tr_delta);
     if (param.refinement>0)
       refinement(p_matched_2,method);
+    totalmatches = p_matched_2.size();
     removeOutliers(p_matched_2,method);
 
   // single pass matching
@@ -236,8 +238,11 @@ void Matcher::matchFeatures(int32_t method, Matrix *Tr_delta) {
     matching(m1p2,m2p2,m1c2,m2c2,n1p2,n2p2,n1c2,n2c2,p_matched_2,method,false,Tr_delta);
     if (param.refinement>0)
       refinement(p_matched_2,method);
+    totalmatches = p_matched_2.size();
     removeOutliers(p_matched_2,method);
   }
+
+  return totalmatches;
 }
 
 void Matcher::bucketFeatures(int32_t max_features,float bucket_width,float bucket_height) {

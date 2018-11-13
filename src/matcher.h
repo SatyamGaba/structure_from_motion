@@ -120,8 +120,8 @@ public:
   // input: method ... 0 = flow, 1 = stereo, 2 = quad matching
   //        Tr_delta: uses motion from previous frame to better search for
   //                  matches, if specified
-  void matchFeatures(int32_t method, Matrix *Tr_delta = 0);
-
+  int32_t matchFeatures(int32_t method, Matrix *Tr_delta = 0);
+  
   // feature bucketing: keeps only max_features per bucket, where the domain
   // is split into buckets of size (bucket_width,bucket_height)
   void bucketFeatures(int32_t max_features,float bucket_width,float bucket_height);
