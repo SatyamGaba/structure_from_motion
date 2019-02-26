@@ -729,8 +729,8 @@ class Matcher(_object):
 
     def matchFeatures(self, method, Tr_delta=None):
         """
-        matchFeatures(self, method, Tr_delta=None) -> int32_t
-        matchFeatures(self, method) -> int32_t
+        matchFeatures(self, method, Tr_delta=None)
+        matchFeatures(self, method)
         """
         return _viso2.Matcher_matchFeatures(self, method, Tr_delta)
 
