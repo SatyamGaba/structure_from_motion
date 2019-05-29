@@ -352,6 +352,101 @@ class VO_parameters(_object):
 VO_parameters_swigregister = _viso2.VO_parameters_swigregister
 VO_parameters_swigregister(VO_parameters)
 
+class VisualOdometryMono(VisualOdometry):
+    """Proxy of C++ VisualOdometryMono class."""
+
+    __swig_setmethods__ = {}
+    for _s in [VisualOdometry]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VisualOdometryMono, name, value)
+    __swig_getmethods__ = {}
+    for _s in [VisualOdometry]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, VisualOdometryMono, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, param):
+        """__init__(self, param) -> VisualOdometryMono"""
+        this = _viso2.new_VisualOdometryMono(param)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _viso2.delete_VisualOdometryMono
+    __del__ = lambda self: None
+
+    def process(self, *args):
+        """
+        process(self, I, dims, replace=False) -> bool
+        process(self, I, dims) -> bool
+        process(self, I1, I2, dims, replace=False) -> bool
+        process(self, I1, I2, dims) -> bool
+        """
+        return _viso2.VisualOdometryMono_process(self, *args)
+
+
+    def getInlierMatches(self):
+        """getInlierMatches(self) -> MatchVector"""
+        return _viso2.VisualOdometryMono_getInlierMatches(self)
+
+
+    def process_frame(self, *args):
+        """
+        process_frame(self, image1, replace=False) -> bool
+        process_frame(self, image1) -> bool
+        process_frame(self, image1, image2, replace=False) -> bool
+        process_frame(self, image1, image2) -> bool
+        """
+        return _viso2.VisualOdometryMono_process_frame(self, *args)
+
+VisualOdometryMono_swigregister = _viso2.VisualOdometryMono_swigregister
+VisualOdometryMono_swigregister(VisualOdometryMono)
+
+class Mono_parameters(VO_parameters):
+    """Proxy of C++ VisualOdometryMono::parameters class."""
+
+    __swig_setmethods__ = {}
+    for _s in [VO_parameters]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Mono_parameters, name, value)
+    __swig_getmethods__ = {}
+    for _s in [VO_parameters]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, Mono_parameters, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["height"] = _viso2.Mono_parameters_height_set
+    __swig_getmethods__["height"] = _viso2.Mono_parameters_height_get
+    if _newclass:
+        height = _swig_property(_viso2.Mono_parameters_height_get, _viso2.Mono_parameters_height_set)
+    __swig_setmethods__["pitch"] = _viso2.Mono_parameters_pitch_set
+    __swig_getmethods__["pitch"] = _viso2.Mono_parameters_pitch_get
+    if _newclass:
+        pitch = _swig_property(_viso2.Mono_parameters_pitch_get, _viso2.Mono_parameters_pitch_set)
+    __swig_setmethods__["ransac_iters"] = _viso2.Mono_parameters_ransac_iters_set
+    __swig_getmethods__["ransac_iters"] = _viso2.Mono_parameters_ransac_iters_get
+    if _newclass:
+        ransac_iters = _swig_property(_viso2.Mono_parameters_ransac_iters_get, _viso2.Mono_parameters_ransac_iters_set)
+    __swig_setmethods__["inlier_threshold"] = _viso2.Mono_parameters_inlier_threshold_set
+    __swig_getmethods__["inlier_threshold"] = _viso2.Mono_parameters_inlier_threshold_get
+    if _newclass:
+        inlier_threshold = _swig_property(_viso2.Mono_parameters_inlier_threshold_get, _viso2.Mono_parameters_inlier_threshold_set)
+    __swig_setmethods__["motion_threshold"] = _viso2.Mono_parameters_motion_threshold_set
+    __swig_getmethods__["motion_threshold"] = _viso2.Mono_parameters_motion_threshold_get
+    if _newclass:
+        motion_threshold = _swig_property(_viso2.Mono_parameters_motion_threshold_get, _viso2.Mono_parameters_motion_threshold_set)
+
+    def __init__(self):
+        """__init__(self) -> Mono_parameters"""
+        this = _viso2.new_Mono_parameters()
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _viso2.delete_Mono_parameters
+    __del__ = lambda self: None
+Mono_parameters_swigregister = _viso2.Mono_parameters_swigregister
+Mono_parameters_swigregister(Mono_parameters)
+
 class VisualOdometryStereo(VisualOdometry):
     """Proxy of C++ VisualOdometryStereo class."""
 

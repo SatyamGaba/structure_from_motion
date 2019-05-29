@@ -2,6 +2,7 @@
 
 %{
 #define SWIG_FILE_WITH_INIT
+#include "viso_mono.h"
 #include "viso_stereo.h"
 #include "reconstruction.h"
 %}
@@ -22,6 +23,7 @@
 // rename the crazy nested class parameter scheme
 %rename (VO_parameters) VisualOdometry::parameters;
 %rename (Matcher_parameters) Matcher::parameters;
+%rename (Mono_parameters) VisualOdometryMono::parameters;
 %rename (Stereo_parameters) VisualOdometryStereo::parameters;
 
 %rename (p_match) Matcher::p_match;
@@ -45,6 +47,7 @@ typedef int int32_t;
 
 // what interfaces to SWIG?
 %include "viso.h"
+%include "viso_mono.h"
 %include "viso_stereo.h"
 %include "matrix.h"
 %include "matcher.h"
@@ -57,6 +60,19 @@ namespace std {
  }
 
 // apply the numpy typemap to enable a more comforable call with 2D images
+%extend VisualOdometryMono {
+  bool process_frame(unsigned char* image1, int rows1, int cols1, bool replace=false)
+  {
+    int dims[] = {cols1, rows1, cols1};
+    return $self->process(image1, dims, replace);
+  }
+  bool process_frame(unsigned char* image1, int rows1, int cols1, unsigned char* image2, int rows2, int cols2, bool replace=false)
+  {
+    int dims[] = {cols1, rows1, cols1};
+    return $self->process(image1, image2, dims, replace);
+  }
+}
+
 %extend VisualOdometryStereo {
   bool process_frame(unsigned char* image1, int rows1, int cols1, unsigned char* image2, int rows2, int cols2, bool replace=false)
   {
