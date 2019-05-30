@@ -42,6 +42,10 @@ bool VisualOdometryMono::process(uint8_t *I, int32_t *dims, bool replace)
 
 bool VisualOdometryMono::process(uint8_t *I1, uint8_t *I2, int32_t *dims, const bool replace)
 {
+  p_matched.clear();
+  inliers.clear();
+  p_matched_inliers.clear();
+
   matcher->pushBack(I1, dims, replace);
   matcher->pushBack(I2, dims, replace);
   matcher->matchFeatures(0);
