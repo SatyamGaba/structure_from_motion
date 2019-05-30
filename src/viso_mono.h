@@ -40,7 +40,7 @@ public:
     {
       height = 1.0;
       pitch = 0.0;
-      ransac_iters = 200; // 2000;
+      ransac_iters = 2000;
       inlier_threshold = 0.00001;
       motion_threshold = 100.0;
     }
