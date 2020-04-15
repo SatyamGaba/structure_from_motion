@@ -25,6 +25,8 @@ class Matching
     int32_t multi_stage;            // 0=disabled,1=multistage matching (denser and faster)
     int32_t half_resolution;        // 0=disabled,1=match at half resolution, refine at full resolution
     int32_t refinement;             // refinement (0=none,1=pixel,2=subpixel)
+    int pre_step_size;              // the size of precomputed feature
+
 };
 
 class Bucket

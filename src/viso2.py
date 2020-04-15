@@ -822,6 +822,11 @@ class Matcher(_object):
         return _viso2.Matcher_setIntrinsics(self, f, cu, cv, base)
 
 
+    def pushBackPreFeature(self, f1, num, replace):
+        """pushBackPreFeature(self, f1, num, replace)"""
+        return _viso2.Matcher_pushBackPreFeature(self, f1, num, replace)
+
+
     def matchFeatures(self, method, Tr_delta=None):
         """
         matchFeatures(self, method, Tr_delta=None)
@@ -849,6 +854,7 @@ class Matcher(_object):
         """
         pushBack(self, I1, I2, dims, replace)
         pushBack(self, I1, dims, replace)
+        pushBack(self, I1, dims, f1, dims_feature, replace)
         pushBack(self, image1, image2, replace=False)
         pushBack(self, image1, image2)
         pushBack(self, image1, replace=False)
@@ -923,6 +929,10 @@ class Matcher_parameters(_object):
     __swig_getmethods__["base"] = _viso2.Matcher_parameters_base_get
     if _newclass:
         base = _swig_property(_viso2.Matcher_parameters_base_get, _viso2.Matcher_parameters_base_set)
+    __swig_setmethods__["pre_step_size"] = _viso2.Matcher_parameters_pre_step_size_set
+    __swig_getmethods__["pre_step_size"] = _viso2.Matcher_parameters_pre_step_size_get
+    if _newclass:
+        pre_step_size = _swig_property(_viso2.Matcher_parameters_pre_step_size_get, _viso2.Matcher_parameters_pre_step_size_set)
 
     def __init__(self):
         """__init__(self) -> Matcher_parameters"""

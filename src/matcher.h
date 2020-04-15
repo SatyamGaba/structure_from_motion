@@ -30,6 +30,7 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 #include <emmintrin.h>
 #include <algorithm>
 #include <vector>
+#include <assert.h>
 
 #include "matrix.h"
 
@@ -51,6 +52,7 @@ public:
     int32_t half_resolution;        // 0=disabled,1=match at half resolution, refine at full resolution
     int32_t refinement;             // refinement (0=none,1=pixel,2=subpixel)
     double  f,cu,cv,base;           // calibration (only for match prediction)
+    int pre_step_size;              // the size of precomputed feature
     
     // default settings
     parameters () {
@@ -64,6 +66,7 @@ public:
       multi_stage            = 1;
       half_resolution        = 1;
       refinement             = 1;
+      pre_step_size          = 258;
     }
   };
 
@@ -108,23 +111,40 @@ public:
   //                         the input images, otherwise the current image is first copied
   //                         to the previous image (ring buffer functionality, descriptors need
   //                         to be computed only once)    
-  void pushBack (uint8_t *I1,uint8_t* I2,int32_t* dims,const bool replace);
+  void pushBack (uint8_t *I1, uint8_t* I2,int32_t* dims,const bool replace);
   
   // computes features from a single image and pushes it back to a ringbuffer,
   // which interally stores the features of the current and previous image pair
   // use this function for flow computation
   // parameter description see above
-  void pushBack (uint8_t *I1,int32_t* dims,const bool replace) { pushBack(I1,0,dims,replace); }
+  void pushBack (uint8_t *I1,int32_t* dims,const bool replace) { pushBack(I1, 0, dims, replace); }
+  
+  // computes features from a single image and pushes it back to a ringbuffer,
+  // which interally stores the features of the current and previous image pair
+  // use this function for flow computation
+  // parameter description see above
+  void pushBack (uint8_t *I1, int32_t* dims, float* f1, int32_t* dims_feature, const bool replace) { 
+      std::cout<<"replace: "<<replace<<std::endl;
+      pushBack(I1, 0, dims, replace); 
+      int num = dims_feature[0];
+      int featureSize = dims_feature[1];
+      std::cout<<"num: "<<num<<std::endl;
+      std::cout<<"Feature size: "<<featureSize <<std::endl;
+      assert(featureSize == parameters.pre_step_size);
+      std::cout<<"Assert correct"<<std::endl;
+      pushBackPreFeature(f1, num, replace);
+  }
+  void pushBackPreFeature(float* f1, int num, bool replace);
 
   // match features currently stored in ring buffer (current and previous frame)
-  // input: method ... 0 = flow, 1 = stereo, 2 = quad matching
+  // input: method ... 0 = flow, 1 = stereo, 2 = quad matching, 3 = precomputed features 
   //        Tr_delta: uses motion from previous frame to better search for
   //                  matches, if specified
   void matchFeatures(int32_t method, Matrix *Tr_delta = 0);
 
   // feature bucketing: keeps only max_features per bucket, where the domain
   // is split into buckets of size (bucket_width,bucket_height)
-  void bucketFeatures(int32_t max_features,float bucket_width,float bucket_height);
+  void bucketFeatures(int32_t max_features,float bucket_width,float bucket_height );
 
   // return vector with matched feature points and indices
   std::vector<Matcher::p_match> getMatches() { return p_matched_2; }
@@ -196,12 +216,22 @@ private:
 
   // matching functions
   void computePriorStatistics (std::vector<Matcher::p_match> &p_matched,int32_t method);
-  void createIndexVector (int32_t* m,int32_t n,std::vector<int32_t> *k,const int32_t &u_bin_num,const int32_t &v_bin_num);
+
+  void createIndexVector (int32_t* m, int32_t n, std::vector<int32_t> *k, const int32_t &u_bin_num, const int32_t &v_bin_num);
+  void createIndexVectorPre (float* m, int32_t n, std::vector<int32_t> *k, 
+          const int32_t &u_bin_num, const int32_t &v_bin_num, const int32_t& step_size );
+
   inline void findMatch (int32_t* m1,const int32_t &i1,int32_t* m2,const int32_t &step_size,
                          std::vector<int32_t> *k2,const int32_t &u_bin_num,const int32_t &v_bin_num,const int32_t &stat_bin,
                          int32_t& min_ind,int32_t stage,bool flow,bool use_prior,double u_=-1,double v_=-1);
+  inline void findMatchPre (float* m1,const int32_t &i1, float* m2,const int32_t &step_size, 
+                         std::vector<int32_t> *k2,const int32_t &u_bin_num,const int32_t &v_bin_num,const int32_t &stat_bin,
+                         int32_t& min_ind);
+
   void matching (int32_t *m1p,int32_t *m2p,int32_t *m1c,int32_t *m2c,
                  int32_t n1p,int32_t n2p,int32_t n1c,int32_t n2c,
+                 std::vector<Matcher::p_match> &p_matched,int32_t method,bool use_prior,Matrix *Tr_delta = 0);
+  void matchingPre (float *m1p, float *m1c, int32_t n1p, int32_t n1c, const int32_t& step_size, 
                  std::vector<Matcher::p_match> &p_matched,int32_t method,bool use_prior,Matrix *Tr_delta = 0);
 
   // outlier removal
@@ -230,6 +260,8 @@ private:
   
   int32_t *m1p1,*m2p1,*m1c1,*m2c1;
   int32_t *m1p2,*m2p2,*m1c2,*m2c2;
+  float *m1p_pre, *m1c_pre;
+  int32_t n1p_pre, n1c_pre;
   int32_t n1p1,n2p1,n1c1,n2c1;
   int32_t n1p2,n2p2,n1c2,n2c2;
   uint8_t *I1p,*I2p,*I1c,*I2c;

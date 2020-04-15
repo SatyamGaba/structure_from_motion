@@ -15,7 +15,7 @@ LEFT="image_00"
 RIGHT="image_01"
 
 if len(sys.argv) < 2:
-    print('Usage: ./demo.py path/to/2011_09_26_drive_0106_sync')
+    print('Usage: ./demo.py /data/kitti/raw/2011_09_26/2011_09_26_drive_0106_sync')
     sys.exit(0)
 
 base_dir = pl.Path(sys.argv[1])
