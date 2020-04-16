@@ -1,11 +1,21 @@
-# Edited by Rui Zhu (rzhu@eng.ucsd.edu)
+# Written by Rui Zhu (rzhu@eng.ucsd.edu)
 # For CSE152B Spring 2020 HW1
 # Apr 15, 2020
 
+import os
 import numpy as np
 import viso2
 import matplotlib.pyplot as plt
 from skimage.io import imread
+import time
+
+def errorMetric(RPred, RGt, TPred, TGt):
+    diffRot = (RPred - RGt)
+    diffTrans = (TPred - TGt)
+    errorRot = np.sqrt(np.sum(np.multiply(diffRot.reshape(-1), diffRot.reshape(-1))))
+    errorTrans = np.sqrt(np.sum(np.multiply(diffTrans.reshape(-1), diffTrans.reshape(-1))))
+
+    return errorRot, errorTrans
 
 # parameter settings (for an example, please download
 img_dir      = '../dataset/sequences/00/image_0/'
@@ -40,10 +50,128 @@ params.calib.cu = calibInfo[2]
 params.calib.cv = calibInfo[6]
 params.height = 1.6
 params.pitch = -0.08
+params.match.pre_step_size = 64
 
-matcher_params = viso2.Matcher_parameters()
+# matcher_params = viso2.Matcher_parameters()
+# matcher_params.pre_step_size = 64
+
+first_frame  = 0
+last_frame   = 300
+
+# init transformation matrix array
+Tr_total = []
+Tr_total_np = []
+Tr_total.append(viso2.Matrix_eye(4))
+Tr_total_np.append(np.eye(4))
+
+# init viso module
+visoMono = viso2.VisualOdometryMono(params)
+
+if_vis = True
+if if_vis:
+    # create figure
+    fig = plt.figure(figsize=(10, 20))
+    ax1 = plt.subplot(211)
+    ax1.axis('off')
+    ax2 = plt.subplot(212)
+    ax2.set_xticks(np.arange(-100, 100, step=10))
+    ax2.set_yticks(np.arange(-500, 500, step=10))
+    ax2.axis('equal')
+    ax2.grid()
+    plt.ion()
+    plt.show()
+
+# for all frames do
+if_replace = False
+errorTransSum = 0
+errorRotSum = 0
+# errorRotArr = np.zeros((1, last_frame-first_frame - 1))
+# errorTransArr = np.zeros((1, last_frame-first_frame-1))
+
+for frame in range(first_frame, last_frame):
+    # 1-based index
+    k = frame-first_frame+1
+      
+    # read current images
+    I = imread(os.path.join(img_dir, '%06d.png'%frame))
+    assert(len(I.shape) == 2) # should be grayscale
+
+    # compute egomotion
+    process_result = visoMono.process_frame(I, if_replace)
+    Tr = visoMono.getMotion()
+    matrixer = viso2.Matrix(Tr)
+    Tr_np = np.zeros((4, 4))
+    Tr.toNumpy(Tr_np) # so awkward...
+
+    # accumulate egomotion, starting with second frame
+    if k > 1:
+        if process_result is False:
+            if_replace = True
+            Tr_total.append(Tr_total[-1])
+            Tr_total_np.append(Tr_total_np[-1])
+        else:
+            if_replace = False
+            Tr_total.append(Tr_total[-1] * viso2.Matrix_inv(Tr))
+            Tr_total_np.append(Tr_total_np[-1] @ np.linalg.inv(Tr_np)) # should be the same
+            print(Tr_total_np[-1])
+
+    # output statistics
+    num_matches = visoMono.getNumberOfMatches()
+    num_inliers = visoMono.getNumberOfInliers()
+    matches = visoMono.getMatches()
+    matches_np = np.empty([4, matches.size()])
+
+    for i,m in enumerate(matches):
+        matches_np[:, i] = (m.u1p, m.v1p, m.u1c, m.v1c)
+    
+    if if_vis:
+        # update image
+        ax1.clear()
+        ax1.imshow(I, cmap='gray', vmin=0, vmax=255)
+        if num_matches != 0:
+            for n in range(num_matches):
+                ax1.plot([matches_np[0, n], matches_np[2, n]], [matches_np[1, n], matches_np[3, n]])
+        ax1.set_title('Frame %d'%frame)
+
+        # update trajectory
+        if k > 1:
+            ax2.plot([Tr_total_np[k-2][0, 3], Tr_total_np[k-1][0, 3]], \
+                [Tr_total_np[k-2][2, 3], Tr_total_np[k-1][2, 3]], 'b.-', linewidth=1)
+            ax2.plot([gtTr[k-2][0, 3], gtTr[k-1][0, 3]], \
+                [gtTr[k-2][2, 3], gtTr[k-1][2, 3]], 'r.-', linewidth=1)
+        ax2.set_title('Blue: estimated trajectory; Red: ground truth trejectory')
+
+        plt.draw()
+    
+    # Compute rotation
+    Rpred_p = Tr_total_np[k-2][0:3, 0:3]
+    Rpred_c = Tr_total_np[k-1][0:3, 0:3]
+    Rpred = Rpred_c.transpose() @ Rpred_p
+    Rgt_p = np.squeeze(gtTr[k-2, 0:3, 0:3])
+    Rgt_c = np.squeeze(gtTr[k-1, 0:3, 0:3])
+    Rgt = Rgt_c.transpose() @ Rgt_p
+    # Compute translation 
+    Tpred_p = Tr_total_np[k-2][0:3, 3:4]
+    Tpred_c = Tr_total_np[k-1][0:3, 3:4]
+    Tpred = Tpred_c - Tpred_p
+    Tgt_p = gtTr[k-2, 0:3, 3:4]
+    Tgt_c = gtTr[k-1, 0:3, 3:4]
+    Tgt = Tgt_c - Tgt_p
+    # Compute errors
+    errorRot, errorTrans = errorMetric(Rpred, Rgt, Tpred, Tgt)
+    errorRotSum = errorRotSum + errorRot
+    errorTransSum = errorTransSum + errorTrans
+    # errorRotArr(k-1) = errorRot;
+    # errorTransArr(k-1) = errorTrans;
+    print('Mean Error Rotation: %.5f'%(errorRotSum / (k-1)))
+    print('Mean Error Translation: %.5f'%(errorTransSum / (k-1)))
 
 
-print(matcher_params.pre_step_size)
 
+    print('== [Result] Frame: %d, Matches %d, Inliers: %.2f'%(frame, num_matches, 100*num_inliers/(num_matches+1e-8)))
 
+    if if_vis:
+        input('Paused; Press Enter to continue')
+        time.sleep(0.1) # Or: enable to this to auto pause for a while after daring to enable animation in case of a delay in drawing
+
+input('Press Enter to continue')

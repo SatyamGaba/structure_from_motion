@@ -8,3 +8,7 @@ Make sure you have SWIG installed (on Ubuntu: `sudo apt-get install swig`), and 
 
 `` pip install -e . ``
 
+
+##
+Python 3
+

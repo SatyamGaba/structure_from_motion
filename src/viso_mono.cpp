@@ -33,6 +33,8 @@ VisualOdometryMono::~VisualOdometryMono()
 
 bool VisualOdometryMono::process(uint8_t *I, int32_t *dims, bool replace)
 {
+  
+
   matcher->pushBack(I, dims, replace);
   matcher->matchFeatures(0);
   matcher->bucketFeatures(param.bucket.max_features, param.bucket.bucket_width, param.bucket.bucket_height);

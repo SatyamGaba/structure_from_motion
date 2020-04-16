@@ -112,6 +112,6 @@ namespace std {
   // support typemap for numpy extraction
   void toNumpy(double* mat, int rows, int cols) {
     // TODO: bounds checking
-    $self->getData(mat, 0, 0, rows-1, cols-1);
+    return $self->getData(mat, 0, 0, rows-1, cols-1);
   }
 }

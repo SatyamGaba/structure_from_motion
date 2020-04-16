@@ -66,7 +66,7 @@ public:
       multi_stage            = 1;
       half_resolution        = 1;
       refinement             = 1;
-      pre_step_size          = 258;
+      pre_step_size          = 64;
     }
   };
 
