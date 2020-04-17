@@ -171,7 +171,6 @@ for frame in range(first_frame, last_frame):
     print('== [Result] Frame: %d, Matches %d, Inliers: %.2f'%(frame, num_matches, 100*num_inliers/(num_matches+1e-8)))
 
     if if_vis:
-        input('Paused; Press Enter to continue')
-        time.sleep(0.1) # Or: enable to this to auto pause for a while after daring to enable animation in case of a delay in drawing
+        z
 
 input('Press Enter to continue')
