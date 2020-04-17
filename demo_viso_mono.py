@@ -4,6 +4,8 @@
 
 import os
 import numpy as np
+np.set_printoptions(precision=4)
+np.set_printoptions(suppress=True)
 import viso2
 import matplotlib.pyplot as plt
 from skimage.io import imread
@@ -67,10 +69,15 @@ Tr_total_np.append(np.eye(4))
 # init viso module
 visoMono = viso2.VisualOdometryMono(params)
 
-if_vis = True
+if_vis = False # set to True to do the visualization per frame; the images will be saved at '.vis/'. Turn off if you just want the camera poses and errors
+if_on_screen = False # if True the visualization per frame is going to be displayed realtime on screen; if False there will be no display, but in both options the images will be saved
+
 if if_vis:
+    save_path = 'vis'
+    os.makedirs(save_path, exist_ok=True)
+
     # create figure
-    fig = plt.figure(figsize=(10, 20))
+    fig = plt.figure(figsize=(10, 15))
     ax1 = plt.subplot(211)
     ax1.axis('off')
     ax2 = plt.subplot(212)
@@ -78,15 +85,18 @@ if if_vis:
     ax2.set_yticks(np.arange(-500, 500, step=10))
     ax2.axis('equal')
     ax2.grid()
-    plt.ion()
-    plt.show()
+    if if_on_screen:
+        plt.ion()
+        plt.show()
+    else:
+        plt.ioff()
 
 # for all frames do
 if_replace = False
 errorTransSum = 0
 errorRotSum = 0
-# errorRotArr = np.zeros((1, last_frame-first_frame - 1))
-# errorTransArr = np.zeros((1, last_frame-first_frame-1))
+errorRot_list = []
+errorTrans_list =[]
 
 for frame in range(first_frame, last_frame):
     # 1-based index
@@ -140,7 +150,7 @@ for frame in range(first_frame, last_frame):
             ax2.plot([gtTr[k-2][0, 3], gtTr[k-1][0, 3]], \
                 [gtTr[k-2][2, 3], gtTr[k-1][2, 3]], 'r.-', linewidth=1)
         ax2.set_title('Blue: estimated trajectory; Red: ground truth trejectory')
-
+        
         plt.draw()
     
     # Compute rotation
@@ -161,8 +171,8 @@ for frame in range(first_frame, last_frame):
     errorRot, errorTrans = errorMetric(Rpred, Rgt, Tpred, Tgt)
     errorRotSum = errorRotSum + errorRot
     errorTransSum = errorTransSum + errorTrans
-    # errorRotArr(k-1) = errorRot;
-    # errorTransArr(k-1) = errorTrans;
+    # errorRot_list.append(errorRot)
+    # errorTrans_list.append(errorTrans)
     print('Mean Error Rotation: %.5f'%(errorRotSum / (k-1)))
     print('Mean Error Translation: %.5f'%(errorTransSum / (k-1)))
 
@@ -171,6 +181,12 @@ for frame in range(first_frame, last_frame):
     print('== [Result] Frame: %d, Matches %d, Inliers: %.2f'%(frame, num_matches, 100*num_inliers/(num_matches+1e-8)))
 
     if if_vis:
-        z
+        # input('Paused; Press Enter to continue') # Option 1: Manually pause and resume
+        if if_on_screen:
+            plt.pause(0.1) # Or Option 2: enable to this to auto pause for a while after daring to enable animation in case of a delay in drawing
+        vis_path = os.path.join(save_path, 'frame%03d.jpg'%frame)
+        fig.savefig(vis_path)
+        print('Saved at %s'%vis_path)
 
-input('Press Enter to continue')
+
+input('Press Enter to exit')

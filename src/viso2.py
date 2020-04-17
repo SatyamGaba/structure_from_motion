@@ -766,10 +766,6 @@ class Matrix(_object):
 Matrix_swigregister = _viso2.Matrix_swigregister
 Matrix_swigregister(Matrix)
 
-# def toNumpy(mat):
-#     """toNumpy(self, mat)"""
-#     return _viso2.Matrix_toNumpy(mat)
-
 def Matrix_eye(m):
     """Matrix_eye(m) -> Matrix"""
     return _viso2.Matrix_eye(m)
