@@ -1,8 +1,8 @@
 # CSE152B HW1, Q1 - SfM with libviso2
 
-## Installation instructions
+## 1. Installation instructions
 ### 1. Set up the environment
-#### [Option 1] On your own machine
+#### 1. [Option 1] On your own machine
 - Install SWIG
     - On Ubuntu: `sudo apt-get install swig`, on MacOS: `brew install swig`
         - You need to install Homebrew first by [HomeBrew](https://brew.sh/)
@@ -11,9 +11,9 @@
     - ``conda create --name pytorch36 python=3.6 pip``
     - ``conda activate pytorch36``
     
-#### [Option 2] On the ``ieng6.ucsd.edu`` server
+#### 2. [Option 2] On the ``ieng6.ucsd.edu`` server
 - Login with your credentials. You should enter a node with 1 GPU.
-- Launch the environment
+- Launch your pod
     - ``launch-scipy-ml-gpu.sh``
 - Create an environment with conda
     - ``conda create --name pytorch36 python=3.6 pip``
@@ -30,13 +30,12 @@
     - ``cd src/``
     - ``pip install -e .``
 
-## Get the data
+## 2. Get the data
 Change the dataset path in Line 26 to your paths. 
 
 On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-252-sp20-public/dataset_SfM`.
 
-
-## How to run
+## 3. How to run
 ``python demo_viso_mono.py``
 
 **Two toggles in Line 22-23 allows you to enable/disable the visualization, and to specify if the visualization will be display on screen or saved in the background.**
@@ -44,7 +43,33 @@ On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-25
 If ``if_vis == True`` and ``if_on_screen == True``, You should see something like this:
 ![](demo.png)
 
-The errors are printed and the visualizations are saved at ``vis/``. To fetch the files you can use commands like `scp` to transfer files to your local machine.
+The errors are printed and the visualizations are saved at ``vis/``. To fetch the files you can use commands like `scp` to transfer files to your local machine, or from the cluster to your local machine:
+
+``scp -r <USERNAME>@dsmlp-login.ucsd.edu:/datasets/cse152-252-sp20-public/dataset_SfM .``
 
 
-## [Extra] How to run training sessions
+
+## 4. [Extra] How to run training sessions
+
+### 1. Set up the environment
+
+#### [Option 1] On the ``ieng6.ucsd.edu`` server
+
+- Log into your account
+    - `ssh {USERNAME}@ieng6.ucsd.edu`
+
+-  Launch TMUX
+    - Reconmended for session management: you can come back anytime after you disconnect your session. Otherwise you have to keep your connection on for hours while training.
+    - Just run ``tmux``
+    - For more TMUX usages please refer to online tutorials like [https://linuxize.com/post/getting-started-with-tmux/](https://linuxize.com/post/getting-started-with-tmux/)
+    - To detach and come back later, use `ctrl + b` then `d`. To attach next time, use `ctrl + b` then `a`.
+
+-  Launch your pod
+        - `launch-scipy-ml-gpu.sh`
+
+#### [Option 2] On your own server
+Just launch TMUX.
+
+### 2. Start training
+Now you can create conda env and do your training in there following Section 1.1
+
