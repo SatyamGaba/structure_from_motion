@@ -44,7 +44,7 @@ On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-25
 If ``if_vis == True`` and ``if_on_screen == True``, You should see something like this:
 ![](demo.png)
 
-The errors are printed and the visualizations are saved at ``vis/``.
+The errors are printed and the visualizations are saved at ``vis/``. To fetch the files you can use commands like `scp` to transfer files to your local machine.
 
 
 ## [Extra] How to run training sessions

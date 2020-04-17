@@ -19,15 +19,15 @@ def errorMetric(RPred, RGt, TPred, TGt):
 
     return errorRot, errorTrans
 
-if_vis = False # set to True to do the visualization per frame; the images will be saved at '.vis/'. Turn off if you just want the camera poses and errors
-if_on_screen = False # if True the visualization per frame is going to be displayed realtime on screen; if False there will be no display, but in both options the images will be saved
+if_vis = True # set to True to do the visualization per frame; the images will be saved at '.vis/'. Turn off if you just want the camera poses and errors
+if_on_screen = True # if True the visualization per frame is going to be displayed realtime on screen; if False there will be no display, but in both options the images will be saved
 
 # parameter settings (for an example, please download
 # dataset_path = '../dataset'
 dataset_path = '/datasets/cse152-252-sp20-public/dataset_SfM' # On the ``ieng6.ucsd.edu`` server
 img_dir      = os.path.join(dataset_path, 'sequences/00/image_0')
 gt_dir       = os.path.join(dataset_path, 'poses/00.txt')
-calibFile    = os.path.join(dataset_path, sequences/00/calib.txt')
+calibFile    = os.path.join(dataset_path, 'sequences/00/calib.txt')
 border       = 50;
 gap          = 15;
 
