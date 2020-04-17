@@ -19,11 +19,11 @@
 - Create an environment with conda
     - ``conda create --name py36 python=3.6 pip``
     - ``conda activate py36``
-        - If you seeing errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate libvisio``
+        - If you seeing errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate py36``
 - Install SWIG
     - ``conda install swig``
     
-### 2. Pull the libviso2 with Python wrappers repo and install dependencies
+### 2. Pull the repo and install dependencies
 - ``git clone https://github.com/Jerrypiglet/pyviso2-SfM.git``
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt``
@@ -62,8 +62,8 @@ The errors are printed and the visualizations are saved at ``vis/``. To fetch th
 -  Launch TMUX
     - Reconmended for session management: you can come back anytime after you disconnect your session. Otherwise you have to keep your connection on for hours while training.
     - Just run ``tmux``
-    - For more TMUX usages please refer to online tutorials like [https://linuxize.com/post/getting-started-with-tmux/](https://linuxize.com/post/getting-started-with-tmux/)
     - To detach and come back later, use `ctrl + b` then `d`. To attach next time, use `ctrl + b` then `a`.
+    - For more TMUX usages please refer to online tutorials like [https://linuxize.com/post/getting-started-with-tmux/](https://linuxize.com/post/getting-started-with-tmux/)
 
 -  Launch your pod
     - `launch-scipy-ml-gpu.sh`
