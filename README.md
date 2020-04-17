@@ -39,14 +39,20 @@ On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-25
 ## 3. How to run
 ``python demo_viso_mono.py``
 
-**Two toggles in Line 22-23 allows you to enable/disable the visualization, and to specify if the visualization will be display on screen or saved in the background.**
+**Two toggles in Line 22-23 allow you to enable/disable the visualization, and to specify if the visualization will be display on screen or saved in the background.**
 
 If ``if_vis == True`` and ``if_on_screen == True``, You should see something like this:
 ![](demo.png)
 
-The errors are printed and the visualizations are saved at ``vis/``. To fetch the files you can use commands like `scp` to transfer files to your local machine, or from the cluster to your local machine:
+The errors are printed and the visualizations are saved at ``vis/``. To fetch the files you can use commands like `scp` to transfer files from the cluster to your local machine:
 
-``scp -r <USERNAME>@dsmlp-login.ucsd.edu:/datasets/cse152-252-sp20-public/dataset_SfM .``
+From your local machine: 
+
+``scp -r <USERNAME>@dsmlp-login.ucsd.edu:/datasets/cse152-252-sp20-public/dataset_SfM {LOCAL PATH}``
+
+Or from within server:
+
+``scp -r /datasets/cse152-252-sp20-public/dataset_SfM <USERNAME>@{YOUR LOCAL ADDRESS}``
 
 
 
