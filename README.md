@@ -31,12 +31,15 @@
     - ``pip install -e .``
 
 ## Get the data
+Change the dataset path in Line 26 to your paths. 
+
+On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-252-sp20-public/dataset_SfM`.
 
 
 ## How to run
 ``python demo_viso_mono.py``
 
-**Two toggles in Line 70 & 71 allows you to enable/disable the visualization, and to specify if the visualization will be display on screen or saved in the background.**
+**Two toggles in Line 22-23 allows you to enable/disable the visualization, and to specify if the visualization will be display on screen or saved in the background.**
 
 If ``if_vis == True`` and ``if_on_screen == True``, You should see something like this:
 ![](demo.png)
