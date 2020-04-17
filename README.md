@@ -4,10 +4,11 @@
 ### 1. Set up the environment
 #### 1. [Option 1] On your own machine
 - Install SWIG
-    - On Ubuntu: `sudo apt-get install swig`, on MacOS: `brew install swig`
+    - On Ubuntu: `sudo apt-get install swig` (sudo required)
+    - On MacOS: `brew install swig`
         - You need to install Homebrew first by [HomeBrew](https://brew.sh/)
 - Install Python 3.X and Pip
-- [Recommended] Create an environment (e.g. [Anaconda](https://docs.conda.io/en/latest/miniconda.html))
+- [Recommended] Create an environment (e.g. with [Anaconda](https://docs.conda.io/en/latest/miniconda.html))
     - ``conda create --name py36 python=3.6 pip``
     - ``conda activate py36``
     
@@ -19,7 +20,7 @@
 - Create an environment with conda
     - ``conda create --name py36 python=3.6 pip``
     - ``conda activate py36``
-        - If you seeing errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate py36``
+        - If you see errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate py36``
 - Install SWIG
     - ``conda install swig``
     
