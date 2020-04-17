@@ -8,22 +8,23 @@
         - You need to install Homebrew first by [HomeBrew](https://brew.sh/)
 - Install Python 3.X and Pip
 - [Recommended] Create an environment (e.g. [Anaconda](https://docs.conda.io/en/latest/miniconda.html))
-    - ``conda create --name pytorch36 python=3.6 pip``
-    - ``conda activate pytorch36``
+    - ``conda create --name py36 python=3.6 pip``
+    - ``conda activate py36``
     
 #### 2. [Option 2] On the ``ieng6.ucsd.edu`` server
-- Login with your credentials. You should enter a node with 1 GPU.
-- Launch your pod
+- Login with your credentials
+    - `ssh {USERNAME}@ieng6.ucsd.edu`
+- Launch your pod. You should enter a node with 1 GPU
     - ``launch-scipy-ml-gpu.sh``
 - Create an environment with conda
-    - ``conda create --name pytorch36 python=3.6 pip``
-    - ``conda activate pytorch36``
-        - If you seeing errors activating the env, follow the information by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate libvisio``
+    - ``conda create --name py36 python=3.6 pip``
+    - ``conda activate py36``
+        - If you seeing errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate libvisio``
 - Install SWIG
     - ``conda install swig``
     
 ### 2. Pull the libviso2 with Python wrappers repo and install dependencies
-- ``git clone https://github.com/Jerrypiglet/pyviso2.git``
+- ``git clone https://github.com/Jerrypiglet/pyviso2-SfM.git``
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt``
 - Compile and install pyviso
@@ -55,7 +56,7 @@ The errors are printed and the visualizations are saved at ``vis/``. To fetch th
 
 #### [Option 1] On the ``ieng6.ucsd.edu`` server
 
-- Log into your account
+- Login with your credentials
     - `ssh {USERNAME}@ieng6.ucsd.edu`
 
 -  Launch TMUX
@@ -65,7 +66,7 @@ The errors are printed and the visualizations are saved at ``vis/``. To fetch th
     - To detach and come back later, use `ctrl + b` then `d`. To attach next time, use `ctrl + b` then `a`.
 
 -  Launch your pod
-        - `launch-scipy-ml-gpu.sh`
+    - `launch-scipy-ml-gpu.sh`
 
 #### [Option 2] On your own server
 Just launch TMUX.
