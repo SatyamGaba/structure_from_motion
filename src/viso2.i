@@ -44,6 +44,9 @@ typedef int int32_t;
 %apply (unsigned char* IN_ARRAY2, int DIM1, int DIM2 ) {(unsigned char* image1, int rows1, int cols1),
      (unsigned char* image2, int rows2, int cols2)}
 %apply (double* INPLACE_ARRAY2, int DIM1, int DIM2) { (double* mat, int rows, int cols) }
+%apply (float* INPLACE_ARRAY2, int DIM1, int DIM2) { (float* feature, int num, int featureSize) }
+
+
 
 // what interfaces to SWIG?
 %include "viso.h"
@@ -66,20 +69,20 @@ namespace std {
     int dims[] = {cols1, rows1, cols1};
     return $self->process(image1, dims, replace);
   }
-  bool process_frame(unsigned char* image1, int rows1, int cols1, unsigned char* image2, int rows2, int cols2, bool replace=false)
-  {
-    int dims[] = {cols1, rows1, cols1};
-    return $self->process(image1, image2, dims, replace);
-  }
+  // bool process_frame(unsigned char* image1, int rows1, int cols1, unsigned char* image2, int rows2, int cols2, bool replace=false)
+  // {
+  //   int dims[] = {cols1, rows1, cols1};
+  //   return $self->process(image1, image2, dims, replace);
+  // }
   // [Rui] process frame and its precomputed feature
-  bool process_frame(unsigned char* image1, int rows1, int cols1, float* feature, int num, int featureSize, bool replace=false)
+  bool process_frame_preFeat(unsigned char* image1, int rows1, int cols1, float* feature, int num, int featureSize, bool replace=false)
   {
     int dims[] = {cols1, rows1, cols1};
     int feature_dims[] = {num, featureSize};
     return $self->process(image1, dims, feature, feature_dims, replace);
   }
   // [Rui] process frame by taking in precomputed matches
-  bool process_frame(float* match, int num)
+  bool process_frame_preMatch(float* match, int num)
   {
     int dims[] = {num};
     return $self->process(match, dims);

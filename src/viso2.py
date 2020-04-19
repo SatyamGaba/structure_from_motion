@@ -392,17 +392,25 @@ class VisualOdometryMono(VisualOdometry):
         return _viso2.VisualOdometryMono_process(self, *args)
 
 
-    def process_frame(self, *args):
+    def process_frame(self, image1, replace=False):
         """
         process_frame(self, image1, replace=False) -> bool
         process_frame(self, image1) -> bool
-        process_frame(self, image1, image2, replace=False) -> bool
-        process_frame(self, image1, image2) -> bool
-        process_frame(self, image1, feature, num, featureSize, replace=False) -> bool
-        process_frame(self, image1, feature, num, featureSize) -> bool
-        process_frame(self, match, num) -> bool
         """
-        return _viso2.VisualOdometryMono_process_frame(self, *args)
+        return _viso2.VisualOdometryMono_process_frame(self, image1, replace)
+
+
+    def process_frame_preFeat(self, image1, feature, replace=False):
+        """
+        process_frame_preFeat(self, image1, feature, replace=False) -> bool
+        process_frame_preFeat(self, image1, feature) -> bool
+        """
+        return _viso2.VisualOdometryMono_process_frame_preFeat(self, image1, feature, replace)
+
+
+    def process_frame_preMatch(self, match, num):
+        """process_frame_preMatch(self, match, num) -> bool"""
+        return _viso2.VisualOdometryMono_process_frame_preMatch(self, match, num)
 
 VisualOdometryMono_swigregister = _viso2.VisualOdometryMono_swigregister
 VisualOdometryMono_swigregister(VisualOdometryMono)

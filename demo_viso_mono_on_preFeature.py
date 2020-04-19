@@ -109,13 +109,14 @@ for frame in range(first_frame, last_frame):
 
     # read current images
     I = imread(os.path.join(img_dir, '%06d.png'%frame))
-    feature = io.loadmat( osp.join(img_dir, '%06d_feature.mat' % frame ) )['feature']
+    feature = np.ascontiguousarray(io.loadmat( osp.join(img_dir, '%06d_feature.mat' % frame ) )['feature'])
     feature[0:2, :] = feature[0:2, :] - 1
 
     assert(len(I.shape) == 2) # should be grayscale
 
     # compute egomotion
-    process_result = visoMono.process_frame(I, feature, if_replace )
+    # print(type(I), type(feature), I.dtype, feature.dtype, I.shape, feature.shape)
+    process_result = visoMono.process_frame_preFeat(I, feature, if_replace)
     Tr = visoMono.getMotion()
     matrixer = viso2.Matrix(Tr)
     Tr_np = np.zeros((4, 4))
