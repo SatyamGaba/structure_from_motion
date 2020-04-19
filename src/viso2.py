@@ -375,19 +375,21 @@ class VisualOdometryMono(VisualOdometry):
     __swig_destroy__ = _viso2.delete_VisualOdometryMono
     __del__ = lambda self: None
 
+    def getInlierMatches(self):
+        """getInlierMatches(self) -> MatchVector"""
+        return _viso2.VisualOdometryMono_getInlierMatches(self)
+
+
     def process(self, *args):
         """
         process(self, I, dims, replace=False) -> bool
         process(self, I, dims) -> bool
         process(self, I1, I2, dims, replace=False) -> bool
         process(self, I1, I2, dims) -> bool
+        process(self, I, dims, feature, dims_feature, replace) -> bool
+        process(self, match, dims) -> bool
         """
         return _viso2.VisualOdometryMono_process(self, *args)
-
-
-    def getInlierMatches(self):
-        """getInlierMatches(self) -> MatchVector"""
-        return _viso2.VisualOdometryMono_getInlierMatches(self)
 
 
     def process_frame(self, *args):
@@ -396,6 +398,9 @@ class VisualOdometryMono(VisualOdometry):
         process_frame(self, image1) -> bool
         process_frame(self, image1, image2, replace=False) -> bool
         process_frame(self, image1, image2) -> bool
+        process_frame(self, image1, feature, num, featureSize, replace=False) -> bool
+        process_frame(self, image1, feature, num, featureSize) -> bool
+        process_frame(self, match, num) -> bool
         """
         return _viso2.VisualOdometryMono_process_frame(self, *args)
 

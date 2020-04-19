@@ -6,7 +6,7 @@
 - Install SWIG
     - On Ubuntu: `sudo apt-get install swig` (sudo required)
     - On MacOS: `brew install swig`
-        - You need to install Homebrew first by [HomeBrew](https://brew.sh/)
+        - You need to install Homebrew first with [HomeBrew](https://brew.sh/)
 - Install Python 3.X and Pip
 - [Recommended] Create an environment (e.g. with [Anaconda](https://docs.conda.io/en/latest/miniconda.html))
     - ``conda create --name py36 python=3.6 pip``

@@ -67,6 +67,12 @@ public:
   bool process(uint8_t *I1, uint8_t *I2, int32_t *dims, bool replace = false);
   std::vector<Matcher::p_match> getInlierMatches() { return p_matched_inliers; }
 
+    // process a new image, using the precomputed feature 
+  bool process (uint8_t *I, int32_t* dims, float* feature, int32_t* dims_feature, bool replace);
+
+  // process a new image, using the precomputed match 
+  bool process (float* match, int32_t* dims);
+
 private:
   template <class T>
   struct idx_cmp

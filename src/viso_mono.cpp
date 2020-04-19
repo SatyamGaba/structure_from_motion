@@ -57,6 +57,36 @@ bool VisualOdometryMono::process(uint8_t *I1, uint8_t *I2, int32_t *dims, const 
   return true;
 }
 
+// [Zhengqin Li]
+bool VisualOdometryMono::process (uint8_t *I, int32_t* dims, float* feature, int32_t* dims_feature, bool replace) {  
+    std::cout <<"Start push back!"<<std::endl;
+    matcher->pushBack(I, dims, feature, dims_feature, replace);
+    std::cout<<"Finish push back!"<<std::endl;
+    matcher->matchFeatures(3);
+    std::cout<<"Finish match features!"<<std::endl;
+    matcher->bucketFeatures(param.bucket.max_features,param.bucket.bucket_width,param.bucket.bucket_height);                          
+    p_matched = matcher->getMatches();
+    return updateMotion();
+}
+
+// [Zhengqin Li]
+bool VisualOdometryMono::process (float* matches, int32_t* dims_match ){
+    p_matched.erase(p_matched.begin(), p_matched.end() );
+    int num_matched = dims_match[0];
+    int matchNum = 4; 
+    for(int n = 0; n < num_matched; n++){
+        float u1p = matches[n * 4 + 0];
+        float v1p = matches[n * 4 + 1];
+        float u1c = matches[n * 4 + 2];
+        float v1c = matches[n * 4 + 3];
+        int i1p = n; int i1c = n;
+
+        p_matched.push_back(Matcher::p_match(u1p, v1p, i1p, -1, -1, -1, 
+                    u1c, v1c, i1c, -1, -1, -1) );
+    }
+    return updateMotion();
+}
+
 void VisualOdometryMono::computeInliers(vector<Matcher::p_match> p_matched)
 {
   // get number of matches

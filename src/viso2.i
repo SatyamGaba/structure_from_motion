@@ -71,6 +71,19 @@ namespace std {
     int dims[] = {cols1, rows1, cols1};
     return $self->process(image1, image2, dims, replace);
   }
+  // [Rui] process frame and its precomputed feature
+  bool process_frame(unsigned char* image1, int rows1, int cols1, float* feature, int num, int featureSize, bool replace=false)
+  {
+    int dims[] = {cols1, rows1, cols1};
+    int feature_dims[] = {num, featureSize};
+    return $self->process(image1, dims, feature, feature_dims, replace);
+  }
+  // [Rui] process frame by taking in precomputed matches
+  bool process_frame(float* match, int num)
+  {
+    int dims[] = {num};
+    return $self->process(match, dims);
+  }
 }
 
 %extend VisualOdometryStereo {

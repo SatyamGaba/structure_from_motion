@@ -76,6 +76,8 @@ public:
   //                     an older coordinate system / time step than the previous one.
   // output: returns false if an error occured
   bool process (uint8_t *I1, uint8_t *I2, int32_t* dims, bool replace=false);  
+
+  bool process (uint8_t *I1, int32_t* dims, float* feature, bool replace=false);  
   
   // call this function instead of the specialized ones, if you already have
   // feature matches, and simply want to compute visual odometry from them, without
