@@ -126,22 +126,25 @@ for frame in range(first_frame, last_frame):
         v1 = v1[border:-border:gap, border:-border:gap ]
         u2 = u2[border:-border:gap, border:-border:gap ]
         v2 = v2[border:-border:gap, border:-border:gap ]
-        u1 = u1.reshape(1, -1 )
-        v1 = v1.reshape(1, -1 )
-        u2 = u2.reshape(1, -1 )
-        v2 = v2.reshape(1, -1 )
-        preMatches = np.concatenate([u1, v1, u2, v2], axis=0 )
+        u1 = u1.reshape(-1, 1 )
+        v1 = v1.reshape(-1, 1 )
+        u2 = u2.reshape(-1, 1 )
+        v2 = v2.reshape(-1, 1 )
+        preMatches = np.concatenate([u1, v1, u2, v2], axis=1 )
         preMatches = preMatches.astype(np.float32 )
         preMatches = np.ascontiguousarray(preMatches )
-        num = preMatches.shape[1]
 
         # compute egomotion
-        process_result = visoMono.process_frame_preMatch(preMatches, num )
+        print(preMatches.shape )
+        process_result = visoMono.process_frame_preMatch(preMatches )
 
         Tr = visoMono.getMotion()
         matrixer = viso2.Matrix(Tr)
         Tr_np = np.zeros((4, 4) )
         Tr.toNumpy(Tr_np) # so awkward...
+        matches_np = preMatches
+    else:
+        matches_np = np.zeros((4, 0), dtype = np.float32 )
 
     # accumulate egomotion, starting with second frame
     if k > 1:
@@ -158,17 +161,15 @@ for frame in range(first_frame, last_frame):
     # output statistics
     num_matches = visoMono.getNumberOfMatches()
     num_inliers = visoMono.getNumberOfInliers()
-    matches = visoMono.getMatches()
-    matches_np = np.empty([4, matches.size()])
+    #matches = visoMono.getMatches()
 
-    for i,m in enumerate(matches):
-        matches_np[:, i] = (m.u1p, m.v1p, m.u1c, m.v1c)
 
+    matches_np = matches_np.transpose()
     if if_vis:
         # update image
         ax1.clear()
         ax1.imshow(I, cmap='gray', vmin=0, vmax=255)
-        if num_matches != 0:
+        if num_inliers != 0:
             for n in range(num_matches):
                 ax1.plot([matches_np[0, n], matches_np[2, n]], [matches_np[1, n], matches_np[3, n]])
         ax1.set_title('Frame %d'%frame)

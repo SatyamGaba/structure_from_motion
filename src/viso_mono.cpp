@@ -75,7 +75,8 @@ bool VisualOdometryMono::process (uint8_t *I, int32_t* dims, float* feature, int
 bool VisualOdometryMono::process (float* matches, int32_t* dims_match ){
     p_matched.erase(p_matched.begin(), p_matched.end() );
     int num_matched = dims_match[0];
-    int matchNum = 4; 
+    int matchNum = 4;  
+    std::cout<<"hehehehehehehehehehehehehe num matched:"<<num_matched<<std::endl;
     for(int n = 0; n < num_matched; n++){
         float u1p = matches[n * 4 + 0];
         float v1p = matches[n * 4 + 1];
