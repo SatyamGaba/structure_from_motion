@@ -267,9 +267,9 @@ class VisualOdometryMono(VisualOdometry):
         r"""process_frame_preFeat(self, image1, feature, replace=False) -> bool"""
         return _viso2.VisualOdometryMono_process_frame_preFeat(self, image1, feature, replace)
 
-    def process_frame_preMatch(self, match ):
+    def process_frame_preMatch(self, match, num):
         r"""process_frame_preMatch(self, match, num) -> bool"""
-        num = int(match.shape[1] )
+        print(match.dtype )
         return _viso2.VisualOdometryMono_process_frame_preMatch(self, match, num)
 
 # Register VisualOdometryMono in _viso2:

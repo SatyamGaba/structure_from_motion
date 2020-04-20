@@ -133,9 +133,10 @@ for frame in range(first_frame, last_frame):
         preMatches = np.concatenate([u1, v1, u2, v2], axis=0 )
         preMatches = preMatches.astype(np.float32 )
         preMatches = np.ascontiguousarray(preMatches )
+        num = preMatches.shape[1]
 
         # compute egomotion
-        process_result = visoMono.process_frame_preMatch(preMatches )
+        process_result = visoMono.process_frame_preMatch(preMatches, num )
 
         Tr = visoMono.getMotion()
         matrixer = viso2.Matrix(Tr)
