@@ -1,4 +1,4 @@
-# CSE152B HW1, Q1 - SfM with libviso2
+# CSE152B HW1 - SfM with libviso2
 
 ## 1. Installation instructions
 ### 1. Set up the environment
@@ -23,6 +23,10 @@
         - If you see errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate py36``
 - Install SWIG
     - ``conda install swig``
+- Install Jupyter Notebook
+    - ``conda install jupyter``
+- Install kernels for Jupter Notebook
+    - ``conda install nb_conda``
     
 ### 2. Pull the repo and install dependencies
 - ``git clone https://github.com/Jerrypiglet/pyviso2-SfM.git``
@@ -38,14 +42,25 @@ Change the dataset path in Line 26 to your paths.
 On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-252-sp20-public/dataset_SfM`.
 
 ## 3. How to run
-``python demo_viso_mono.py``
 
-**Two toggles in Line 22-23 allow you to enable/disable the visualization, and to specify if the visualization will be display on screen or saved in the background.**
+### Launch Jupyter Notebook
+<!-- ``python demo_viso_mono.py`` -->
+There are 3 `*.ipynb` jupyter notebook files in  `/Homework1/pyviso2`. 
+- Launch Jupyter Notebook server in the cluster
+    - `jupyter notebook --`
+- You will be provided with a URL that you can open locally
+- In a opened notebook, change the kernel to the name of the conda env you just created (in the case of this documentation it should be `py36`): ![](demo_kernel.png)
 
-If ``if_vis == True`` and ``if_on_screen == True``, You should see something like this:
+### Options
+One toggle in Line 22 ``if_vis = True/False`` allows you to enable/disable the visualization. Disabling the visualization will make the for loop run significantly faster.
+<!-- , and to specify if the visualization will be display on screen or saved in the background.**
+
+If  and ``if_on_screen == True``,  -->
+
+### Outputs
+The errors are printed and the visualizations are saved at ``vis/``. The images should look like:
 ![](demo.png)
-
-The errors are printed and the visualizations are saved at ``vis/``. To fetch the files you can use commands like `scp` to transfer files from the cluster to your local machine:
+To fetch the files you can use commands like `scp` to transfer files from the cluster to your local machine:
 
 From your local machine: 
 
@@ -53,8 +68,7 @@ From your local machine:
 
 Or from within server:
 
-``scp -r /datasets/cse152-252-sp20-public/dataset_SfM <USERNAME>@{YOUR LOCAL ADDRESS}``
-
+``scp -r {REMOTE PATH TO THE vis FOLDER} <USERNAME>@{YOUR LOCAL PATH}``
 
 
 ## 4. [Extra] How to run training sessions
