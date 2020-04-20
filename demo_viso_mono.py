@@ -20,7 +20,7 @@ def errorMetric(RPred, RGt, TPred, TGt):
     return errorRot, errorTrans
 
 if_vis = True # set to True to do the visualization per frame; the images will be saved at '.vis/'. Turn off if you just want the camera poses and errors
-if_on_screen = True # if True the visualization per frame is going to be displayed realtime on screen; if False there will be no display, but in both options the images will be saved
+if_on_screen = False # if True the visualization per frame is going to be displayed realtime on screen; if False there will be no display, but in both options the images will be saved
 
 # parameter settings (for an example, please download
 # dataset_path = '../dataset'
@@ -30,6 +30,7 @@ gt_dir       = os.path.join(dataset_path, 'poses/00.txt')
 calibFile    = os.path.join(dataset_path, 'sequences/00/calib.txt')
 border       = 50;
 gap          = 15;
+epi = 1e-8
 
 # Load the camera calibration information
 with open(calibFile) as fid:
@@ -174,8 +175,8 @@ for frame in range(first_frame, last_frame):
     errorTransSum = errorTransSum + errorTrans
     # errorRot_list.append(errorRot)
     # errorTrans_list.append(errorTrans)
-    print('Mean Error Rotation: %.5f'%(errorRotSum / (k-1)))
-    print('Mean Error Translation: %.5f'%(errorTransSum / (k-1)))
+    print('Mean Error Rotation: %.5f'%(errorRotSum / (k-1+epi)))
+    print('Mean Error Translation: %.5f'%(errorTransSum / (k-1+epi)))
 
 
 
