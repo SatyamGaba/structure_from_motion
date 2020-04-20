@@ -61,11 +61,13 @@ bool VisualOdometryMono::process(uint8_t *I1, uint8_t *I2, int32_t *dims, const 
 bool VisualOdometryMono::process (uint8_t *I, int32_t* dims, float* feature, int32_t* dims_feature, bool replace) {  
     std::cout <<"Start push back!"<<std::endl;
     matcher->pushBack(I, dims, feature, dims_feature, replace);
-    std::cout<<"Finish push back!"<<std::endl;
-    matcher->matchFeatures(3);
-    std::cout<<"Finish match features!"<<std::endl;
-    matcher->bucketFeatures(param.bucket.max_features,param.bucket.bucket_width,param.bucket.bucket_height);                          
+    std::cout<<"Finish pushing back!"<<std::endl;
+    matcher->matchFeatures(3 );
+    std::cout<<"Finish matching features!"<<std::endl; 
+    matcher->bucketFeatures(param.bucket.max_features, param.bucket.bucket_width, param.bucket.bucket_height); 
+    std::cout<<"Finish bucketing features!"<<std::endl;
     p_matched = matcher->getMatches();
+    std::cout<<"Finish getting matches!"<<std::endl;
     return updateMotion();
 }
 

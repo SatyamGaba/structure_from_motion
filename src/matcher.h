@@ -130,8 +130,7 @@ public:
       int featureSize = dims_feature[1];
       std::cout<<"num: "<<num<<std::endl;
       std::cout<<"Feature size: "<<featureSize <<std::endl;
-      assert(featureSize == parameters.pre_step_size);
-      std::cout<<"Assert correct"<<std::endl;
+      param.pre_step_size = featureSize;
       pushBackPreFeature(f1, num, replace);
   }
   void pushBackPreFeature(float* f1, int num, bool replace);

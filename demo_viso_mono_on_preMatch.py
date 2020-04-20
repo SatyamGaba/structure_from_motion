@@ -109,34 +109,38 @@ for frame in range(first_frame, last_frame):
 
     # read current images
     I = imread(os.path.join(img_dir, '%06d.png'%frame))
-    feature = np.ascontiguousarray(
-            io.loadmat( osp.join(img_dir, '%06d_flow.mat' % frame ) )['flow']
-            )
     assert(len(I.shape) == 2) # should be grayscale
 
-    height, width = I.shape
-    u1, v1 = np.meshgrid(np.arange(0, width), np.arange(0, height ) )
-    u2 = u1 + flow(:, :, 1)
-    v2 = v1 + flow(:, :, 2)
 
-    u1 = u1(border:-border:gap, border:-border:gap )
-    v1 = v1(border:-border:gap, border:-border:gap )
-    u2 = u2(border:-border:gap, border:-border:gap )
-    v2 = v2(border:-border:gap, border:-border:gap )
-    u1 = u1.reshape(1, height * width )
-    v1 = v1.reshape(1, height * width )
-    u2 = u2.reshape(1, height * width )
-    v2 = v2.reshape(1, height * width )
-    preMatches = np.concatenate([u1, v1, u2, v2], axis=0 )
-    preMatches = preMatches.astype(np.float32 )
+    if frame > 0:
+        flow = np.ascontiguousarray(
+                io.loadmat( osp.join(img_dir, '%06d_flow.mat' % frame ) )['flow']
+                )
 
-    # compute egomotion
-    process_result = visoMono.process_frame_preMatch(preMatches,  if_replace)
+        height, width = I.shape
+        u1, v1 = np.meshgrid(np.arange(0, width), np.arange(0, height ) )
+        u2 = u1 + flow[:, :, 0]
+        v2 = v1 + flow[:, :, 1]
 
-    Tr = visoMono.getMotion()
-    matrixer = viso2.Matrix(Tr)
-    Tr_np = np.zeros((4, 4) )
-    Tr.toNumpy(Tr_np) # so awkward...
+        u1 = u1[border:-border:gap, border:-border:gap ]
+        v1 = v1[border:-border:gap, border:-border:gap ]
+        u2 = u2[border:-border:gap, border:-border:gap ]
+        v2 = v2[border:-border:gap, border:-border:gap ]
+        u1 = u1.reshape(1, -1 )
+        v1 = v1.reshape(1, -1 )
+        u2 = u2.reshape(1, -1 )
+        v2 = v2.reshape(1, -1 )
+        preMatches = np.concatenate([u1, v1, u2, v2], axis=0 )
+        preMatches = preMatches.astype(np.float32 )
+        preMatches = np.ascontiguousarray(preMatches )
+
+        # compute egomotion
+        process_result = visoMono.process_frame_preMatch(preMatches )
+
+        Tr = visoMono.getMotion()
+        matrixer = viso2.Matrix(Tr)
+        Tr_np = np.zeros((4, 4) )
+        Tr.toNumpy(Tr_np) # so awkward...
 
     # accumulate egomotion, starting with second frame
     if k > 1:

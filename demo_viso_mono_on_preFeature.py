@@ -46,9 +46,6 @@ with open(gt_dir) as fid:
     gtTr = [[float(TrStr) for TrStr in line.strip().split(' ')] for line in fid.readlines()]
 gtTr = np.asarray(gtTr).reshape(-1, 3, 4)
 
-# param['height'] = 1.6
-# param['pitch']  = -0.08
-# param['match'] = {'pre_step_size': 64}
 first_frame  = 0
 last_frame   = 300
 
@@ -59,10 +56,6 @@ params.calib.cu = calibInfo[2]
 params.calib.cv = calibInfo[6]
 params.height = 1.6
 params.pitch = -0.08
-params.match.pre_step_size = 64
-
-# matcher_params = viso2.Matcher_parameters()
-# matcher_params.pre_step_size = 64
 
 first_frame  = 0
 last_frame   = 300
@@ -109,17 +102,18 @@ for frame in range(first_frame, last_frame):
 
     # read current images
     I = imread(os.path.join(img_dir, '%06d.png'%frame))
-    feature = np.ascontiguousarray(io.loadmat( osp.join(img_dir, '%06d_feature.mat' % frame ) )['feature'])
-    feature[0:2, :] = feature[0:2, :] - 1
+    feature = io.loadmat( osp.join(img_dir, '%06d_SIFT.mat' % frame ) )['feature']
+    feature = np.ascontiguousarray(feature.transpose() )
 
     assert(len(I.shape) == 2) # should be grayscale
+    feature = feature.astype(np.float32 )
 
     # compute egomotion
-    # print(type(I), type(feature), I.dtype, feature.dtype, I.shape, feature.shape)
     process_result = visoMono.process_frame_preFeat(I, feature, if_replace)
+
     Tr = visoMono.getMotion()
     matrixer = viso2.Matrix(Tr)
-    Tr_np = np.zeros((4, 4))
+    Tr_np = np.zeros((4, 4) )
     Tr.toNumpy(Tr_np) # so awkward...
 
     # accumulate egomotion, starting with second frame

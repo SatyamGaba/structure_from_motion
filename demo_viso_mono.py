@@ -31,7 +31,7 @@ calibFile    = os.path.join(dataset_path, 'sequences/00/calib.txt')
 border       = 50;
 gap          = 15;
 
-# Load the camera calibration information 
+# Load the camera calibration information
 with open(calibFile) as fid:
     calibLines = fid.readlines()
     calibLines = [calibLine.strip() for calibLine in calibLines]
@@ -59,8 +59,6 @@ params.height = 1.6
 params.pitch = -0.08
 params.match.pre_step_size = 64
 
-# matcher_params = viso2.Matcher_parameters()
-# matcher_params.pre_step_size = 64
 
 first_frame  = 0
 last_frame   = 300
@@ -104,7 +102,7 @@ errorTrans_list =[]
 for frame in range(first_frame, last_frame):
     # 1-based index
     k = frame-first_frame+1
-      
+
     # read current images
     I = imread(os.path.join(img_dir, '%06d.png'%frame))
     assert(len(I.shape) == 2) # should be grayscale
@@ -136,7 +134,7 @@ for frame in range(first_frame, last_frame):
 
     for i,m in enumerate(matches):
         matches_np[:, i] = (m.u1p, m.v1p, m.u1c, m.v1c)
-    
+
     if if_vis:
         # update image
         ax1.clear()
@@ -153,9 +151,9 @@ for frame in range(first_frame, last_frame):
             ax2.plot([gtTr[k-2][0, 3], gtTr[k-1][0, 3]], \
                 [gtTr[k-2][2, 3], gtTr[k-1][2, 3]], 'r.-', linewidth=1)
         ax2.set_title('Blue: estimated trajectory; Red: ground truth trejectory')
-        
+
         plt.draw()
-    
+
     # Compute rotation
     Rpred_p = Tr_total_np[k-2][0:3, 0:3]
     Rpred_c = Tr_total_np[k-1][0:3, 0:3]
@@ -163,7 +161,7 @@ for frame in range(first_frame, last_frame):
     Rgt_p = np.squeeze(gtTr[k-2, 0:3, 0:3])
     Rgt_c = np.squeeze(gtTr[k-1, 0:3, 0:3])
     Rgt = Rgt_c.transpose() @ Rgt_p
-    # Compute translation 
+    # Compute translation
     Tpred_p = Tr_total_np[k-2][0:3, 3:4]
     Tpred_c = Tr_total_np[k-1][0:3, 3:4]
     Tpred = Tpred_c - Tpred_p

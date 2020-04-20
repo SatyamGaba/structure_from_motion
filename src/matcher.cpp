@@ -104,7 +104,7 @@ void Matcher::pushBackPreFeature(float* f1, int num, const bool replace) {
         if (m1p_pre) _mm_free(m1p_pre );
         m1p_pre = m1c_pre;
         n1p_pre = n1c_pre;
-    }
+    } 
     m1c_pre = new float [num * param.pre_step_size ];
     for(int i = 0; i < num * param.pre_step_size; i++)
         m1c_pre[i] = f1[i];
@@ -286,9 +286,9 @@ void Matcher::bucketFeatures(int32_t max_features,float bucket_width,float bucke
 
   // find max values
   float u_max = 0;
-  float v_max = 0;
+  float v_max = 0; 
   for (vector<p_match>::iterator it = p_matched_2.begin(); it!=p_matched_2.end(); it++) {
-    if (it->u1c>u_max) u_max=it->u1c;
+    if (it->u1c>u_max) u_max=it->u1c; 
     if (it->v1c>v_max) v_max=it->v1c;
   }
 
@@ -300,7 +300,7 @@ void Matcher::bucketFeatures(int32_t max_features,float bucket_width,float bucke
   // assign matches to their buckets
   for (vector<p_match>::iterator it=p_matched_2.begin(); it!=p_matched_2.end(); it++) {
     int32_t u = (int32_t)floor(it->u1c/bucket_width);
-    int32_t v = (int32_t)floor(it->v1c/bucket_height);
+    int32_t v = (int32_t)floor(it->v1c/bucket_height); 
     buckets[v*bucket_cols+u].push_back(*it);
   }
   
@@ -1096,7 +1096,6 @@ void Matcher::matchingPre (float *m1p, float *m1c, int32_t n1p, int32_t n1c, con
     /////////////////////////////////////////////////////
     // method: flow with precomputed feature
     if (method==3) {
-    
         // create position/class bin index vectors
         createIndexVectorPre(m1p,n1p,k1p,u_bin_num,v_bin_num, step_size );
         createIndexVectorPre(m1c,n1c,k1c,u_bin_num,v_bin_num, step_size );
