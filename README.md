@@ -46,7 +46,7 @@ On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-25
 ### Launch Jupyter Notebook
 <!-- ``python demo_viso_mono.py`` -->
 There are 3 `*.ipynb` jupyter notebook files in  `/Homework1/pyviso2`. 
-- Launch Jupyter Notebook server in the cluster
+- Launch Jupyter Notebook server in the conda env of the cluster
     - `jupyter notebook --`
 - You will be provided with a URL that you can open locally
 - In a opened notebook, change the kernel to the name of the conda env you just created (in the case of this documentation it should be `py36`): ![](demo_kernel.png)
