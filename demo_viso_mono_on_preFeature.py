@@ -25,13 +25,13 @@ if_vis = True # set to True to do the visualization per frame; the images will b
 if_on_screen = True # if True the visualization per frame is going to be displayed realtime on screen; if False there will be no display, but in both options the images will be saved
 
 # parameter settings (for an example, please download
-# dataset_path = '../dataset'
 dataset_path = '../dataset' # On the ``ieng6.ucsd.edu`` server
 img_dir      = os.path.join(dataset_path, 'sequences/00/image_0')
 gt_dir       = os.path.join(dataset_path, 'poses/00.txt')
 calibFile    = os.path.join(dataset_path, 'sequences/00/calib.txt')
-border       = 50;
-gap          = 15;
+border       = 50
+gap          = 15
+suffix = 'superpoint'
 
 # Load the camera calibration information
 with open(calibFile) as fid:
@@ -102,8 +102,8 @@ for frame in range(first_frame, last_frame):
 
     # read current images
     I = imread(os.path.join(img_dir, '%06d.png'%frame))
-    feature = io.loadmat( osp.join(img_dir, '%06d_SIFT.mat' % frame ) )['feature']
-    feature = np.ascontiguousarray(feature.transpose() )
+    feature = np.load( osp.join(img_dir, '%06d_%s.npy' % (frame, suffix) ) )
+    feature = np.ascontiguousarray(feature )
 
     assert(len(I.shape) == 2) # should be grayscale
     feature = feature.astype(np.float32 )
