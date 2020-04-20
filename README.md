@@ -3,6 +3,7 @@
 ## 1. Installation instructions
 ### 1. Set up the environment
 #### 1. [Option 1] On your own machine
+- (local) SSH into your machine
 - Install SWIG
     - On Ubuntu: `sudo apt-get install swig` (sudo required)
     - On MacOS: `brew install swig`
@@ -11,22 +12,31 @@
 - [Recommended] Create an environment (e.g. with [Anaconda](https://docs.conda.io/en/latest/miniconda.html))
     - ``conda create --name py36 python=3.6 pip``
     - ``conda activate py36``
-    
-#### 2. [Option 2] On the ``ieng6.ucsd.edu`` server
-- Login with your credentials
-    - `ssh {USERNAME}@ieng6.ucsd.edu`
-- Launch your pod. You should enter a node with 1 GPU
-    - ``launch-scipy-ml-gpu.sh``
-- Create an environment with conda
-    - ``conda create --name py36 python=3.6 pip``
-    - ``conda activate py36``
-        - If you see errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate py36``
-- Install SWIG
-    - ``conda install swig``
 - Install Jupyter Notebook
     - ``conda install jupyter``
 - Install kernels for Jupter Notebook
     - ``conda install nb_conda``
+- Launch Jupyter Notebook server in the conda env of the cluster
+    - `jupyter notebook`
+    - You will be provided with a URL that you can open locally
+    - In a opened notebook, change the kernel (on Menu: **Kernel** -> **Change Kernel**) to the name of the conda env you just created (in the case of this documentation it should be `py36`)
+    
+#### 2. [Option 2] On the ``ieng6.ucsd.edu`` server
+- (local) Connect your [UCSD VPN](https://blink.ucsd.edu/technology/network/connections/off-campus/VPN/index.html)
+- (local) Login with your credentials
+    - `ssh {USERNAME}@ieng6.ucsd.edu`
+- Launch your pod. You should enter a node with 1 GPU
+    - ``launch-scipy-ml.sh -i ucsdets/cse152-252-notebook:latest``
+- You will be provided with a URL that you can open locally:
+    ![](demo_jupyter.png)
+    - Click on the link. Natigate to the Jupyter notebook for a question (e.g. pyviso2/demo_viso_mono.ipynb)
+<!-- - Create an environment with conda
+    - ``conda create --name py36 python=3.6 pip``
+    - ``conda activate py36``
+        - If you see errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate py36``
+- Install SWIG
+    - ``conda install swig`` -->
+
     
 ### 2. Pull the repo and install dependencies
 - ``git clone https://github.com/Jerrypiglet/pyviso2-SfM.git``
@@ -45,11 +55,8 @@ On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-25
 
 ### Launch Jupyter Notebook
 <!-- ``python demo_viso_mono.py`` -->
-There are 3 `*.ipynb` jupyter notebook files in  `/Homework1/pyviso2`. 
-- Launch Jupyter Notebook server in the conda env of the cluster
-    - `jupyter notebook --`
-- You will be provided with a URL that you can open locally
-- In a opened notebook, change the kernel to the name of the conda env you just created (in the case of this documentation it should be `py36`): ![](demo_kernel.png)
+There are 3 `*.ipynb` jupyter notebook files in  `pyviso2/`. 
+
 
 ### Options
 One toggle in Line 22 ``if_vis = True/False`` allows you to enable/disable the visualization. Disabling the visualization will make the for loop run significantly faster.
@@ -64,11 +71,11 @@ To fetch the files you can use commands like `scp` to transfer files from the cl
 
 From your local machine: 
 
-``scp -r <USERNAME>@dsmlp-login.ucsd.edu:/datasets/cse152-252-sp20-public/dataset_SfM {LOCAL PATH}``
+``scp -r <USERNAME>@dsmlp-login.ucsd.edu:/datasets/home/53/253/cs152sp20ta1/pyviso2/vis {LOCAL PATH}``
 
-Or from within server:
+Or from within server if your local machine has a fixed address or IP:
 
-``scp -r {REMOTE PATH TO THE vis FOLDER} <USERNAME>@{YOUR LOCAL PATH}``
+``scp -r {REMOTE PATH TO THE vis FOLDER} <USERNAME>@<LOCAL ADDRESS>:{YOUR LOCAL PATH}``
 
 
 ## 4. [Extra] How to run training sessions
