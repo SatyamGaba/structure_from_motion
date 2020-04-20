@@ -22,7 +22,7 @@
     - In a opened notebook, change the kernel (on Menu: **Kernel** -> **Change Kernel**) to the name of the conda env you just created (in the case of this documentation it should be `py36`)
     
 #### 2. [Option 2] On the ``ieng6.ucsd.edu`` server
-- (local) Connect your [UCSD VPN](https://blink.ucsd.edu/technology/network/connections/off-campus/VPN/index.html)
+- (local) **(IMPORTANT) Connect your [UCSD VPN](https://blink.ucsd.edu/technology/network/connections/off-campus/VPN/index.html)**
 - (local) Login with your credentials
     - `ssh {USERNAME}@ieng6.ucsd.edu`
 - Launch your pod. You should enter a node with 1 GPU
