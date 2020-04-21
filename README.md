@@ -29,13 +29,7 @@
     - ``launch-scipy-ml.sh -i ucsdets/cse152-252-notebook:latest``
 - You will be provided with a URL that you can open locally:
     ![](demo_jupyter.png)
-    - Click on the link. Natigate to the Jupyter notebook for a question (e.g. pyviso2/demo_viso_mono.ipynb)
-<!-- - Create an environment with conda
-    - ``conda create --name py36 python=3.6 pip``
-    - ``conda activate py36``
-        - If you see errors activating the env, follow the information on screen by typing `conda init bash`, `exit` and again ``launch-scipy-ml-gpu.sh``, then ``conda activate py36``
-- Install SWIG
-    - ``conda install swig`` -->
+    - Click on the link. Natigate to the Jupyter notebook for a question (e.g. pyviso2/demo_viso_mono.ipynb)include it
 
     
 ### 2. Pull the repo and install dependencies
@@ -43,28 +37,27 @@
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt``
 - Compile and install pyviso
-    - ``cd src/``
+    - ``cd pyviso/src/``
     - ``pip install -e .``
 
-## 2. Get the data
-Change the dataset path in Line 26 to your paths. 
-
-On the ``ieng6.ucsd.edu`` server, the dataset is located at `/datasets/cse152-252-sp20-public/dataset_SfM`.
+## 2. Data
+On the ``ieng6.ucsd.edu`` server, the datasets are located at
+- Q1: sfm: `/datasets/cse152-252-sp20-public/dataset_SfM`
+    - Change the dataset path in jupyter notebooks to your paths
+- Q?
 
 ## 3. How to run
+### Q1: SfM - Working folder: `./pyviso`
+#### Launch Jupyter Notebook
+There are 3 `*.ipynb` jupyter notebook files in  `pyviso/`. 
 
-### Launch Jupyter Notebook
-<!-- ``python demo_viso_mono.py`` -->
-There are 3 `*.ipynb` jupyter notebook files in  `pyviso2/`. 
-
-
-### Options
+#### Options
 One toggle in Line 22 ``if_vis = True/False`` allows you to enable/disable the visualization. Disabling the visualization will make the for loop run significantly faster.
 <!-- , and to specify if the visualization will be display on screen or saved in the background.**
 
 If  and ``if_on_screen == True``,  -->
 
-### Outputs
+#### Output
 The errors are printed and the visualizations are saved at ``vis/``. The images should look like:
 ![](demo.png)
 To fetch the files you can use commands like `scp` to transfer files from the cluster to your local machine:
@@ -76,6 +69,8 @@ From your local machine:
 Or from within server if your local machine has a fixed address or IP:
 
 ``scp -r {REMOTE PATH TO THE vis FOLDER} <USERNAME>@<LOCAL ADDRESS>:{YOUR LOCAL PATH}``
+
+### Q4: Optical Flow - Working folder: `./opticalFlow`
 
 
 ## 4. [Extra] How to run training sessions
