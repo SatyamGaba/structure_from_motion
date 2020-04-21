@@ -291,12 +291,8 @@ if __name__ == '__main__':
 
     # Parse command line arguments.
     parser = argparse.ArgumentParser(description='PyTorch SuperPoint Demo.')
-    parser.add_argument('--input', type=str, default='../../dataset/sequences/00/image_0/',
+    parser.add_argument('--input', type=str, required=True,
             help='Image directory or movie file or "camera" (for webcam).')
-    parser.add_argument('--weights_path', type=str, default='superpoint_v1.pth',
-            help='Path to pretrained weights file (default: superpoint_v1.pth).')
-    parser.add_argument('--img_format', type=str, default='.png',
-            help='Format of images (default: .png).')
     parser.add_argument('--skip', type=int, default=1,
             help='Images to skip if input is movie or directory (default: 1).')
     parser.add_argument('--show_extra', action='store_true',
@@ -322,7 +318,7 @@ if __name__ == '__main__':
 
     print('==> Loading pre-trained network.')
     # This class runs the SuperPoint network and processes its outputs.
-    fe = SuperPointFrontend(weights_path=opt.weights_path,
+    fe = SuperPointFrontend(weights_path='superpoint_v1.pth',
             nms_dist=opt.nms_dist,
             conf_thresh=opt.conf_thresh,
             nn_thresh=opt.nn_thresh,
@@ -331,7 +327,7 @@ if __name__ == '__main__':
 
     print('==> Running Demo.')
     for n in range(opt.first_frame, opt.last_frame):
-        imgName = osp.join(opt.input, '%06d%s' % (n, opt.img_format) )
+        imgName = osp.join(opt.input, '%06d.png' % (n) )
         print('%d/%d/%d: %s' % (opt.first_frame, n, opt.last_frame, imgName) )
         img = cv2.imread(imgName )
         imgHeight, imgWidth = img.shape[0], img.shape[1]
@@ -365,7 +361,7 @@ if __name__ == '__main__':
         location[0, :] = np.clip(pts[0, :] * scaleW, 0, imgWidth-1 )
         location[1, :] = np.clip(pts[1, :] * scaleH, 0, imgHeight-1 )
         feature = np.concatenate([location, desc], axis=0)
-        featureName = imgName.replace(opt.img_format, '_superpoint.npy' )
+        featureName = imgName.split('/')[-1].replace('.png', '_superpoint.npy')
         print('Number of keypoint: %d' % pts.shape[1] )
 
         feature = np.ascontiguousarray(feature.transpose() )

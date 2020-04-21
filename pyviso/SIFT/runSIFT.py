@@ -2,11 +2,21 @@ import glob
 import cv2
 import numpy as np
 import os.path as osp
+import argparse
 
-root = '../../dataset/sequences/00/image_0/'
-imNames = glob.glob(osp.join(root, '*.png') )
-imNames = sorted(imNames )
-for imName in imNames:
+# Parse command line arguments.
+parser = argparse.ArgumentParser(description='PyTorch SuperPoint Demo.' )
+parser.add_argument('--input', type=str, required=True,
+        help='Image directory or movie file or "camera" (for webcam).' )
+parser.add_argument('--first_frame', type=int, default=0,
+        help='Image Id of first frame, default 0' )
+parser.add_argument('--last_frame', type=int, default=300,
+        help='Image Id of last frame, default value=300' )
+opt = parser.parse_args()
+print(opt)
+
+for n in range(opt.first_frame, opt.last_frame ):
+    imName = osp.join(opt.input, '%06d.png' % n )
     print(imName )
     im = cv2.imread(imName )
     if len(im.shape ) == 3:
@@ -20,6 +30,6 @@ for imName in imNames:
     features = features.astype(np.float32 ) / 255.0
     pfeatures = np.concatenate([points, features], axis=1 )
 
-    newName = imName.replace('.png', '_sift.npy')
+    newName = imName.split('/')[-1].replace('.png', '_sift.npy')
     np.save(newName, pfeatures )
 

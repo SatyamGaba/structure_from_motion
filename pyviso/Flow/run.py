@@ -169,5 +169,5 @@ if __name__ == '__main__':
     tensorOutput = estimate(tensorFirst, tensorSecond)
     numpyOutput = tensorOutput.numpy().transpose(1, 2, 0).astype(numpy.float32 )
 
-    flowName = arguments_strSecond.replace('.png', '_flow.npy')
+    flowName = arguments_strSecond.split('/')[-1].replace('.png', '_flow.npy')
     np.save(flowName, numpyOutput )
