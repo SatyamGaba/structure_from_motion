@@ -38,7 +38,7 @@
     - ``pip install -r requirements.txt``
 - Compile and install `pyviso` for the SfM question
     - ``cd pyviso/src/``
-    - ``pip install -e .``
+    - ``pip install -e . --user``
 
 ## 2. Data
 On the ``ieng6.ucsd.edu`` server, the datasets are located at
