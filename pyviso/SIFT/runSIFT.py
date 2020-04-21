@@ -32,4 +32,3 @@ for n in range(opt.first_frame, opt.last_frame ):
 
     newName = imName.split('/')[-1].replace('.png', '_sift.npy')
     np.save(newName, pfeatures )
-
