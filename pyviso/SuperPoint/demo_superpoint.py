@@ -361,7 +361,7 @@ if __name__ == '__main__':
         location[0, :] = np.clip(pts[0, :] * scaleW, 0, imgWidth-1 )
         location[1, :] = np.clip(pts[1, :] * scaleH, 0, imgHeight-1 )
         feature = np.concatenate([location, desc], axis=0)
-        featureName = imgName.split('/')[-1].replace('.png', '_superpoint.npy')
+        featureName = imgName.split('/')[-1].replace('.png', '_feature.npy')
         print('Number of keypoint: %d' % pts.shape[1] )
 
         feature = np.ascontiguousarray(feature.transpose() )

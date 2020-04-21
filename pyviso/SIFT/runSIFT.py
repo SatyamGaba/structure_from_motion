@@ -30,5 +30,5 @@ for n in range(opt.first_frame, opt.last_frame ):
     features = features.astype(np.float32 ) / 255.0
     pfeatures = np.concatenate([points, features], axis=1 )
 
-    newName = imName.split('/')[-1].replace('.png', '_sift.npy')
+    newName = imName.split('/')[-1].replace('.png', '_feature.npy')
     np.save(newName, pfeatures )
