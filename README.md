@@ -1,4 +1,4 @@
-# CSE152B HW1 - SfM with libviso2
+# CSE152B HW1
 
 ## 1. Installation instructions
 ### 1. Set up the environment
@@ -29,20 +29,21 @@
     - ``launch-scipy-ml.sh -i ucsdets/cse152-252-notebook:latest``
 - You will be provided with a URL that you can open locally:
     ![](demo_jupyter.png)
-    - Click on the link. Natigate to the Jupyter notebook for a question (e.g. pyviso2/demo_viso_mono.ipynb)include it
+    - Click on the link. Then natigate to the jupyter notebook for a question which you are going to git clone as follows
 
     
 ### 2. Pull the repo and install dependencies
-- ``git clone https://github.com/Jerrypiglet/pyviso2-SfM.git``
+- ``git clone https://github.com/Jerrypiglet/cse152b-hw1.git``
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt``
-- Compile and install pyviso
+- Compile and install `pyviso` for the SfM question
     - ``cd pyviso/src/``
     - ``pip install -e .``
 
 ## 2. Data
 On the ``ieng6.ucsd.edu`` server, the datasets are located at
-- Q1: sfm: `/datasets/cse152-252-sp20-public/dataset_SfM`
+- Q1: SfM
+    - `/datasets/cse152-252-sp20-public/dataset_SfM`
     - Change the dataset path in jupyter notebooks to your paths
 - Q?
 
@@ -52,10 +53,7 @@ On the ``ieng6.ucsd.edu`` server, the datasets are located at
 There are 3 `*.ipynb` jupyter notebook files in  `pyviso/`. 
 
 #### Options
-One toggle in Line 22 ``if_vis = True/False`` allows you to enable/disable the visualization. Disabling the visualization will make the for loop run significantly faster.
-<!-- , and to specify if the visualization will be display on screen or saved in the background.**
-
-If  and ``if_on_screen == True``,  -->
+One toggle ``if_vis = True/False`` allows you to enable/disable the visualization. Disabling the visualization will make the for loop run significantly faster.
 
 #### Output
 The errors are printed and the visualizations are saved at ``vis/``. The images should look like:
@@ -96,4 +94,3 @@ Just launch TMUX.
 
 ### 2. Start training
 Now you can create conda env and do your training in there following Section 1.1
-
