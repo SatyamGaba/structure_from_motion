@@ -1,4 +1,4 @@
-# CSE152B HW1
+# CSE252B HW1
 
 ## 1. Installation instructions
 ### 1. Set up the environment
