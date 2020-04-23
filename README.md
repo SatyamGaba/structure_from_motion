@@ -1,4 +1,5 @@
 # CSE252C HW1
+The homework is in the Jupyter Notebook ``hw1-CSE252C.ipynb``.
 
 ## 1. Installation instructions
 ### 1. Set up the environment
