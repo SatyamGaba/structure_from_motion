@@ -1,4 +1,4 @@
-# CSE252B HW1
+# CSE252C HW1
 
 ## 1. Installation instructions
 ### 1. Set up the environment
@@ -45,7 +45,9 @@ On the ``ieng6.ucsd.edu`` server, the datasets are located at
 - Q1: SfM
     - `/datasets/cse152-252-sp20-public/dataset_SfM`
     - Change the dataset path in jupyter notebooks to your paths
-- Q?
+- Q5:
+    - `/datasets/cse152-252-sp20-public/sfmlearner_h128w416`
+    - `/datasets/cse152-252-sp20-public/kitti`
 
 ## 3. How to run
 ### Q1: SfM - Working folder: `./pyviso`
@@ -87,7 +89,7 @@ Or from within server if your local machine has a fixed address or IP:
     - For more TMUX usages please refer to online tutorials like [https://linuxize.com/post/getting-started-with-tmux/](https://linuxize.com/post/getting-started-with-tmux/)
 
 -  Launch your pod
-    - `launch-scipy-ml-gpu.sh`
+    - Follow Section 1.1.2
 
 #### [Option 2] On your own server
 Just launch TMUX.
