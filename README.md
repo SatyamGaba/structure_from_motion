@@ -71,7 +71,7 @@ On the ``ieng6.ucsd.edu`` server, the datasets are located at
 ## 3. How to run
 ### Q1: SfM - Working folder: `./pyviso`
 #### Launch Jupyter Notebook
-There are ` hw1-CSE252C.ipynb` jupyter notebook files in  `pyviso/`. 
+There are ` hw1-CSE252C.ipynb` jupyter notebook files in  `cse252c_hw1`. 
 
 #### Options
 One toggle ``if_vis = True/False`` allows you to enable/disable the visualization. Disabling the visualization will make the for loop run significantly faster.
