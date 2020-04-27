@@ -91,7 +91,6 @@ def runSFM(dataset_path, feature_dir):
     errorRotSum = 0
     errorRot_list = []
     errorTrans_list =[]
-    feature_dir = 'SIFT'
 
     for frame in range(first_frame, last_frame):
         # 1-based index
