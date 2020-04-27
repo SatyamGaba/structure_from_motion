@@ -1,4 +1,5 @@
 numpy
 matplotlib
 scikit-image
+torch
 opencv-contrib-python==3.4.2.17
