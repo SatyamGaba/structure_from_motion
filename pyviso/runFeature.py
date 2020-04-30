@@ -176,8 +176,8 @@ def runSFM(dataset_path, feature_dir):
         errorTransSum = errorTransSum + errorTrans
         # errorRot_list.append(errorRot)
         # errorTrans_list.append(errorTrans)
-        meanRotError = errorRotSum / (k-1+0.0000000001)
-        meanTransError = errorTransSum / (k-1+0.000000001)
+        meanRotError = errorRotSum / (k-1+1e-8)
+        meanTransError = errorTransSum / (k-1+1e-8)
         print('Mean Error Rotation: %.5f'%(meanRotError))
         print('Mean Error Translation: %.5f'%(meanTransError))
 
