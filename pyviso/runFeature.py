@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import pandas as pd
 np.set_printoptions(precision=4)
 np.set_printoptions(suppress=True)
 import viso2
@@ -19,7 +20,7 @@ def errorMetric(RPred, RGt, TPred, TGt):
 
 
 def runSFM(dataset_path, feature_dir):
-    if_vis = True # set to True to do the visualization per frame; the images will be saved at '.vis/'. Turn off if you just want the camera poses and errors
+    if_vis = False # set to True to do the visualization per frame; the images will be saved at '.vis/'. Turn off if you just want the camera poses and errors
     if_on_screen = False # if True the visualization per frame is going to be displayed realtime on screen; if False there will be no display, but in both options the images will be saved
 
     # parameter settings (for an example, please download
@@ -63,6 +64,9 @@ def runSFM(dataset_path, feature_dir):
     Tr_total.append(viso2.Matrix_eye(4))
     Tr_total_np.append(np.eye(4))
 
+    #initialize an empty df to return errors
+    errors_df = pd.DataFrame(columns = ["Mean Rotation Error","Mean Transition Error"])
+    
     # init viso module
     visoMono = viso2.VisualOdometryMono(params)
 
@@ -172,10 +176,12 @@ def runSFM(dataset_path, feature_dir):
         errorTransSum = errorTransSum + errorTrans
         # errorRot_list.append(errorRot)
         # errorTrans_list.append(errorTrans)
-        print('Mean Error Rotation: %.5f'%(errorRotSum / (k-1)))
-        print('Mean Error Translation: %.5f'%(errorTransSum / (k-1)))
+        meanRotError = errorRotSum / (k-1+0.0000000001)
+        meanTransError = errorTransSum / (k-1+0.000000001)
+        print('Mean Error Rotation: %.5f'%(meanRotError))
+        print('Mean Error Translation: %.5f'%(meanTransError))
 
-
+        errors_df.loc[len(errors_df)] = [meanRotError,meanTransError]
 
         print('== [Result] Frame: %d, Matches %d, Inliers: %.2f'%(frame, num_matches, 100*num_inliers/(num_matches+1e-8)))
 
@@ -192,5 +198,5 @@ def runSFM(dataset_path, feature_dir):
                 plt.imshow(plt.imread(vis_path))
                 plt.axis('off')
                 plt.show()
-
+    return errors_df
     # input('Press Enter to exit')

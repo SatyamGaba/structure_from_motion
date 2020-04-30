@@ -167,7 +167,7 @@ if __name__ == '__main__':
         tensorSecond = torch.cat([tensorSecond, tensorSecond, tensorSecond], dim=0)
 
     tensorOutput = estimate(tensorFirst, tensorSecond)
-    numpyOutput = tensorOutput.numpy().transpose(1, 2, 0).astype(numpy.float32 )
+    numpyOutput = tensorOutput.cpu().numpy().transpose(1, 2, 0).astype(numpy.float32 )
 
     flowName = arguments_strSecond.split('/')[-1].replace('.png', '_flow.npy')
     np.save(flowName, numpyOutput )
