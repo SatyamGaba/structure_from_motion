@@ -1,3 +1,0 @@
-[submodule "pyviso/SfmLearner-Pytorch"]
-	path = pyviso/SfmLearner-Pytorch
-	url = https://github.com/ClementPinard/SfmLearner-Pytorch.git
