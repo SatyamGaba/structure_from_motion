@@ -65,6 +65,7 @@ On the ``ieng6.ucsd.edu`` server, the datasets are located at
 - Q1: SfM
     - `/datasets/cse152-252-sp20-public/dataset_SfM`
     - Change the dataset path in jupyter notebooks to your paths
+    - Crate a Symbolic link to the dataset in local directory using: `ln -s /datasets/cse152-252-sp20-public/dataset_SfM .`
 - Q5:
     - `/datasets/cse152-252-sp20-public/sfmlearner_h128w416`
     - `/datasets/cse152-252-sp20-public/kitti`
