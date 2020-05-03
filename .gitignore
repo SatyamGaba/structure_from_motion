@@ -4,3 +4,6 @@ viso2_wrap.cpp
 *.pyc
 src/build*
 .vscode
+__pycache__/
+checkpoints/
+*.ipynb_checkpoints/
