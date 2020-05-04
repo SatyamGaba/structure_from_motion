@@ -292,8 +292,9 @@ def train(args, train_loader, disp_net, pose_exp_net, optimizer, epoch_size, log
             batch_size = pose.size()[0]
             homo_row = torch.tensor([[0,0,0,1]],dtype=torch.float).to(device)
             homo_row = homo_row.unsqueeze(0).expand(batch_size,-1,-1)
-            T12 = pose_vec2mat(pose[:,0])
-            T12 = torch.cat((T12,homo_row),1)
+            T21 = pose_vec2mat(pose[:,0])
+            T21 = torch.cat((T21,homo_row),1)
+            T12 = torch.inverse(T21)
             T23 = pose_vec2mat(pose[:,1])
             T23 = torch.cat((T23,homo_row),1)
             T13 = torch.matmul(T23,T12)     #[B, 4, 4]
@@ -406,8 +407,9 @@ def validate_without_gt(args, val_loader, disp_net, pose_exp_net, epoch, logger,
             batch_size = pose.size()[0]
             homo_row = torch.tensor([[0,0,0,1]],dtype=torch.float).to(device)
             homo_row = homo_row.unsqueeze(0).expand(batch_size,-1,-1)
-            T12 = pose_vec2mat(pose[:,0])
-            T12 = torch.cat((T12,homo_row),1)
+            T21 = pose_vec2mat(pose[:,0])
+            T21 = torch.cat((T21,homo_row),1)
+            T12 = torch.inverse(T21)
             T23 = pose_vec2mat(pose[:,1])
             T23 = torch.cat((T23,homo_row),1)
             T13 = torch.matmul(T23,T12)     #[B,4,4]
