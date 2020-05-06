@@ -3,7 +3,7 @@ The work is done as a part of project in CSE252C- Advanced Computer Vision at Un
 **Final Report : Gaba_Satyam.pdf**
 ## Getting Started
 - Clone the repository
-    - ``git clone https://github.com/SatyamGaba/sfm.git``
+    - ``git clone https://github.com/SatyamGaba/structure_for_motion.git``
 - Final Report is in the Jupyter Notebook ``sfm_analysis_final.ipynb``
 - Follow the README (this file) for installation, data and compute instructions.
 
@@ -41,7 +41,7 @@ The work is done as a part of project in CSE252C- Advanced Computer Vision at Un
 
     
 ### 2. Pull the repo and install dependencies
-- ``git clone https://github.com/SatyamGaba/sfm.git``
+- ``git clone https://github.com/SatyamGaba/structure_for_motion.git``
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt --user``
 - Compile and install `pyviso` for the SfM question
