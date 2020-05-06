@@ -1,22 +1,10 @@
-# CSE252C HW1
-## 0. Homework instructions
-
-1. Attempt all questions.
-2. Please comment all your code adequately.
-3. Include all relevant information such as text answers, output images in notebook.
-4. **Academic integrity:** The homework must be completed individually.
-
-5. **Submission instructions:**  
- (a) Submit the notebook and its PDF version on Gradescope.  
- (b) Rename your submission files as Lastname_Firstname.ipynb and Lastname_Firstname.pdf.  
- (c) Correctly select pages for each answer on Gradescope to allow proper grading.
-
-6. **Due date:** Assignments are due Mon, May 4, by 4pm PST.
-
-### Steps to access and complete homework
-- Clone the homework repository
-    - ``git clone https://github.com/eric-yyjau/cse252c_hw1.git``
-- The homework is in the Jupyter Notebook ``hw1-CSE252C.ipynb``
+# Structure for Motion
+The work is done as a part of project in CSE252C- Advanced Computer Vision at University of California - San Diego <br>
+**Final Report : Gaba_Satyam.pdf**
+## Getting Started
+- Clone the repository
+    - ``git clone https://github.com/SatyamGaba/sfm.git``
+- Final Report is in the Jupyter Notebook ``sfm_analysis_final.ipynb``
 - Follow the README (this file) for installation, data and compute instructions.
 
 ## 1. Installation instructions
@@ -53,7 +41,7 @@
 
     
 ### 2. Pull the repo and install dependencies
-- ``git clone https://github.com/eric-yyjau/cse252c_hw1.git``
+- ``git clone https://github.com/SatyamGaba/sfm.git``
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt --user``
 - Compile and install `pyviso` for the SfM question
@@ -73,7 +61,7 @@ On the ``ieng6.ucsd.edu`` server, the datasets are located at
 ## 3. How to run
 ### Q1: SfM - Working folder: `./pyviso`
 #### Launch Jupyter Notebook
-There is a ` hw1-CSE252C.ipynb` jupyter notebook file in the top-level directory `cse252c_hw1`. 
+There is a ` sfm_analysis_final.ipynb` jupyter notebook file in the top-level directory `sfm`. 
 
 #### Options
 One toggle ``if_vis = True/False`` allows you to enable/disable the visualization. Disabling the visualization will make the for loop run significantly faster.
