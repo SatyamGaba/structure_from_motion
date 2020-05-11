@@ -3,7 +3,7 @@ The work is done as a project in CSE252C- Advanced Computer Vision at University
 **Final Report is `Gaba_Satyam.pdf`**
 ## Getting Started
 - Clone the repository
-    - ``git clone https://github.com/SatyamGaba/structure_for_motion.git``
+    - ``git clone https://github.com/SatyamGaba/structure_from_motion.git``
 - Final Report is in the Jupyter Notebook ``sfm_analysis_final.ipynb``
 - Follow the README (this file) for installation, data and compute instructions.
 
@@ -54,7 +54,7 @@ The goal is to tract the trajectory of car motion using a camera (Monocular visi
     - Click on the link. Then natigate to the jupyter notebook for a question which you are going to git clone as follows
 
 #### 1.2. Pull the repo and install dependencies
-- ``git clone https://github.com/SatyamGaba/structure_for_motion.git``
+- ``git clone https://github.com/SatyamGaba/structure_from_motion.git``
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt --user``
 - Compile and install `pyviso` for the SfM question
