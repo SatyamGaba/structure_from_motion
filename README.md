@@ -54,7 +54,11 @@ The goal is to tract the trajectory of car motion using a camera (Monocular visi
     - Click on the link. Then natigate to the jupyter notebook for a question which you are going to git clone as follows
 
     
+<<<<<<< HEAD
 #### 1.2. Pull the repo and install dependencies
+=======
+### 2. Pull the repo and install dependencies
+>>>>>>> master
 - ``git clone https://github.com/SatyamGaba/structure_for_motion.git``
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt --user``
