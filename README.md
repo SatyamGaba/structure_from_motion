@@ -53,12 +53,7 @@ The goal is to tract the trajectory of car motion using a camera (Monocular visi
     ![](figures/demo_jupyter.png)
     - Click on the link. Then natigate to the jupyter notebook for a question which you are going to git clone as follows
 
-    
-<<<<<<< HEAD
 #### 1.2. Pull the repo and install dependencies
-=======
-### 2. Pull the repo and install dependencies
->>>>>>> master
 - ``git clone https://github.com/SatyamGaba/structure_for_motion.git``
 - Install dependencies (Python 3.X with Pip)
     - ``pip install -r requirements.txt --user``
@@ -136,7 +131,7 @@ The results of all experiments are summarized in the table below:
 | SPyNet     |                   0.00372 | 0.79390 |
 
 #### Libviso2:
-<img src="figures/libviso2_result.jpg" style="width:400px;"/>
+<img src="figures/libviso2_result.jpg" style="width:390px;"/>
 
 #### SIFT:
 <img src="figures/sift_result.jpg" style="width:400px;"/>
@@ -149,10 +144,10 @@ The results of all experiments are summarized in the table below:
 
 #### Sfm Learner:
 * Warped Image:
-<img src="figures/val_Warped_Outputs__0.png" style="width:400px;"/>
+<img src="figures/val_Warped_Outputs__0.png" style="width:500px;"/>
 
 * Depth Map:
-<img src="figures/val_Depth_Output_Normalized_0.png" style="width:400px;"/>
+<img src="figures/val_Depth_Output_Normalized_0.png" style="width:500px;"/>
 
 
 Error metrics used: Absolute Translation Error (ATE) and Rotational Error (RE).
