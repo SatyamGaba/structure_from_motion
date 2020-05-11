@@ -1,4 +1,4 @@
-# Structure for Motion
+# Structure from Motion
 The work is done as a project in CSE252C- Advanced Computer Vision at University of California - San Diego <br>
 **Final Report is `Gaba_Satyam.pdf`**
 ## Getting Started
